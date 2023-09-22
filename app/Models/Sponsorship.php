@@ -13,4 +13,9 @@ class Sponsorship extends Model
     use SoftDeletes;
 
     protected $fillable = ['price', 'duration'];
+
+    public function apartments()
+    {
+        return $this->belongsToMany(Apartment::class);
+    }
 }
