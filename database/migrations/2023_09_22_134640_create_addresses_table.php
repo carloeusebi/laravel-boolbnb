@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('apartment_id')->constrained();
+            $table->foreignId('apartment_id')->constrained()->default('0');
             $table->varChar('city', 20)->nullable();
             $table->varChar('street', 20)->nullable();
             $table->tinyInt('street_number', 2)->nullable();
