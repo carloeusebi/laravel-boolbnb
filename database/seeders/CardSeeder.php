@@ -17,7 +17,6 @@ class CardSeeder extends Seeder
     {
         for ($i = 0; $i < 10; $i++) {
             $card = new Card();
-            $card->user_id = 1;
             $card->first_name = $faker->firstName();
             $card->last_name = $faker->lastName();
             $card->number = $faker->numerify('################');
