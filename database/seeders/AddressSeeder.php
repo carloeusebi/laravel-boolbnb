@@ -19,7 +19,7 @@ class AddressSeeder extends Seeder
             $address->city = $faker->city();
             $address->street = $faker->streetName();
             $address->street_number = $faker->randomNumber(2);
-            $address->zip = $faker->postcode();
+            $address->zip = $faker->randomNumber(5, true);
             $address->lat = $faker->latitude();
             $address->long = $faker->longitude();
             $address->save();
