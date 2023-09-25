@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Apartment;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ApartmentUpdateRequest extends FormRequest
@@ -12,6 +13,11 @@ class ApartmentUpdateRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function attributes()
+    {
+        return Apartment::labels();
     }
 
     /**

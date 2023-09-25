@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Apartment;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ApartmentStoreRequest extends FormRequest
@@ -16,10 +17,7 @@ class ApartmentStoreRequest extends FormRequest
 
     public function attributes()
     {
-        return [
-            'name' => 'Nome',
-            'rooms' => 'Stanze',
-        ];
+        return Apartment::labels();
     }
 
     /**
