@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('address')->nullable();
             $table->string('lat')->nullable();
-            $table->string('long')->nullable();
+            $table->string('lon')->nullable();
             $table->tinyInteger('rooms')->unsigned()->nullable();
             $table->tinyInteger('bedrooms')->unsigned()->nullable();
             $table->tinyInteger('bathrooms')->unsigned()->nullable();
