@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\AuthController;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,4 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::delete('/logout', [AuthController::class, 'logout']);
 
-Route::get('/test', function () {
-    return response(status: 204);
-})->middleware('auth:sanctum');
+Route::apiResource('/apartments', ApartmentController::class);
