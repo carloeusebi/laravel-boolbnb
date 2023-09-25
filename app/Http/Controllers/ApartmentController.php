@@ -7,6 +7,7 @@ use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
 use Exception;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ApartmentController extends Controller
@@ -35,8 +36,12 @@ class ApartmentController extends Controller
         //slug
         $data['slug'] = Str::slug($request->name);
 
-        //todo file image upload
+        // IMAGE UPLOAD
+        if (array_key_exists('thumbnail', $data)) {
+            $data['thumbnail'] = $this->saveImage($data['thumbnail']);
+        }
 
+        // COORDINATES
         try {
             $coordinates = $this->getCoordinates($request->address);
         } catch (Exception $e) {
@@ -71,7 +76,16 @@ class ApartmentController extends Controller
 
         $data = $request->all();
 
-        //TODO handle image upload
+        // IMAGE UPLOAD
+        if (array_key_exists('thumbnail', $data)) {
+            // if there was a previous thumbnail, delete the old thumbnail
+            if ($apartment->thumbnail)
+                Storage::delete($apartment->thumbnail);
+
+            $data['thumbnail'] = $this->saveImage($data['thumbnail']);
+        }
+
+        // COORDINATES
         if ($apartment->address !== $request->address) {
             try {
                 $coordinates = $this->getCoordinates($request->address);
@@ -94,9 +108,25 @@ class ApartmentController extends Controller
     public function destroy(string $id)
     {
         $apartment = Apartment::findOrFail($id);
+
+        //deletes the thumbnail
+        if ($apartment->thumbnail)
+            Storage::delete($apartment->thumbnail);
+
         $apartment->destroy();
 
         return response(status: 204);
+    }
+
+
+    /**
+     * Saves the image in the public folder `images`
+     * 
+     * @return string The pat of the saved image.
+     */
+    private function saveImage($image)
+    {
+        return Storage::put('images', $image);
     }
 
 
