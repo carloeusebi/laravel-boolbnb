@@ -26,6 +26,7 @@ return new class extends Migration
             $table->tinyInteger('bathrooms')->unsigned()->nullable();
             $table->smallInteger('square_meters')->unsigned()->nullable();
             $table->boolean('visible')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
