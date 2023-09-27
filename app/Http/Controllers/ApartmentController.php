@@ -31,7 +31,7 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentStoreRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         //slug
         $data['slug'] = Str::slug($request->name);
