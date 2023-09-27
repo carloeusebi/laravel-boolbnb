@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\Apartment;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\StorageAttributes;
 
 class ApartmentSeeder extends Seeder
 {
@@ -18,6 +20,9 @@ class ApartmentSeeder extends Seeder
         $first_line = true;
         $thumbnails = scandir(base_path('storage/app/seed_thumbnails/images'));
         $thumbnails = array_slice($thumbnails, 2);
+
+        Storage::makeDirectory('images');
+
         while (($data = fgetcsv($csv_file)) !== false) {
 
             if (!$first_line) {
@@ -36,8 +41,11 @@ class ApartmentSeeder extends Seeder
                 $apartment->square_meters = $data[12];
                 $apartment->visible = true;
 
-                $content = file_get_contents(base_path('storage/app/seed_thumbnails/images/') . array_pop($thumbnails));
-                $apartment->thumbnail = Storage::put('images', $content);
+                // $content = file_get_contents(base_path('storage/app/seed_thumbnails/images/') . array_pop($thumbnails));
+
+                $thumb = array_pop($thumbnails);
+                File::copy(base_path('storage/app/seed_thumbnails/images/' . $thumb), public_path("storage/images/$thumb"));
+                $apartment->thumbnail = 'images/' . $thumb;
 
                 $apartment->save();
             }
