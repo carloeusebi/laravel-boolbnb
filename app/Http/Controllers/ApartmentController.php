@@ -66,10 +66,10 @@ class ApartmentController extends Controller
 
         // IMAGE UPLOAD
         $thumbnail = $request->file('thumbnail');
-        if ($thumbnail){
+        if ($thumbnail) {
 
             // if there was an old thumbnail delete it
-            if ($apartment->thumbnail){
+            if ($apartment->thumbnail) {
                 Storage::delete($apartment->thumbnail);
             }
 
@@ -92,7 +92,7 @@ class ApartmentController extends Controller
         if ($apartment->thumbnail)
             Storage::delete($apartment->thumbnail);
 
-        $apartment->destroy();
+        $apartment->delete();
 
         return response(status: 204);
     }
