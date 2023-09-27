@@ -4,39 +4,45 @@ namespace Database\Seeders;
 
 use App\Models\Apartment;
 use App\Models\User;
-use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ApartmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(Generator $faker): void
+    public function run(): void
     {
-        // this is for earlier development, seeder will be redone in the future
-        $NUMBER_OF_APARTMENTS = 20;
+        $csv_file = fopen(base_path('database/seeders/apartments.csv'), 'r');
+        $first_line = true;
+        $thumbnails = scandir(base_path('storage/app/seed_thumbnails/images'));
+        $thumbnails = array_slice($thumbnails, 2);
+        while (($data = fgetcsv($csv_file)) !== false) {
 
-        Storage::makeDirectory('images');
+            if (!$first_line) {
+                $apartment = new Apartment();
 
-        for ($i = 0; $i <= $NUMBER_OF_APARTMENTS; $i++) {
-            $user = User::inRandomOrder()->first();
+                $apartment->user_id = $data[1];
+                $apartment->name = $data[2];
+                $apartment->slug = $data[3];
+                $apartment->description = $data[4];
+                $apartment->address = $data[6];
+                $apartment->lat = $data[7];
+                $apartment->lon = $data[8];
+                $apartment->rooms = $data[9];
+                $apartment->bedrooms = $data[10];
+                $apartment->bathrooms = $data[11];
+                $apartment->square_meters = $data[12];
+                $apartment->visible = true;
 
-            Apartment::create([
-                'user_id' => $user->id,
-                'name' => "Apartment_$i",
-                'slug' => Str::slug("Apartment_$i"),
-                'address' => 'Via a caso',
-                'thumbnail' => 'images/' . $faker->image(storage_path('app/public/images'), 250, 250, fullPath: false),
-                'lat' => '41.000',
-                'lon' => '40.000',
-                'rooms' => rand(1, 5),
-                'bedrooms' => rand(1, 5),
-                'bathrooms' => rand(1, 5),
-                'square_meters' => rand(40, 120),
-            ]);
+                $content = file_get_contents(base_path('storage/app/seed_thumbnails/images/') . array_pop($thumbnails));
+                $apartment->thumbnail = Storage::put('images', $content);
+
+                $apartment->save();
+            }
+
+            $first_line = false;
         }
     }
 }
