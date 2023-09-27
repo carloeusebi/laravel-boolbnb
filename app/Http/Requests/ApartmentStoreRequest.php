@@ -28,16 +28,16 @@ class ApartmentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'name' => 'required|unique:apartments,name|max:80',
-            'description' => 'required',
-            'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
-            'address' => 'required',
-            //?? lat && long
-            'rooms' => 'nullable|numeric|min:0|max:255',
-            'bedrooms' => 'nullable|numeric|min:0|max:255',
-            'bathrooms' => 'nullable|numeric|min:0|max:255',
-            'square_meters' => 'nullable|numeric|min:0|max:65535',
+            // 'user_id' => 'required|exists:users,id',
+            // 'name' => 'required|unique:apartments,name|max:80',
+            // 'description' => 'required',
+            // 'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
+            // 'address' => 'required',
+            // //?? lat && long
+            // 'rooms' => 'nullable|numeric|min:0|max:255',
+            // 'bedrooms' => 'nullable|numeric|min:0|max:255',
+            // 'bathrooms' => 'nullable|numeric|min:0|max:255',
+            // 'square_meters' => 'nullable|numeric|min:0|max:65535',
         ];
     }
 }
