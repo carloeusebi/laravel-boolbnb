@@ -96,7 +96,7 @@
 
     <div class="col-10 mt-3 mx-auto d-flex justify-content-center gap-4">
 
-      <a class="me-3 mb-3 fw-bold text-decoration-none btn-sm btn-warning "
+      <a class="me-3 mb-3 fw-bold text-decoration-none btn btn-sm btn-warning "
         href="{{ route('admin.apartments.edit', $apartment) }}">
         <i class="pe-2 fas fa-pencil"></i>Modifica
       </a>
@@ -104,7 +104,7 @@
       <form class="d-inline delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
         @csrf
         @method('DELETE')
-        <button type="submit" class=" mb-3 btn-sm btn-danger ">
+        <button type="submit" class=" mb-3 btn-sm btn btn-danger ">
           <span class=" fw-bold text-decoration-none" href="#">
             <i class="pe-2 fas fa-trash"></i>Elimina
           </span>
