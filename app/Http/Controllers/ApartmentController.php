@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApartmentStoreRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class ApartmentController extends Controller
 {
@@ -30,9 +33,20 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ApartmentStoreRequest $request)
     {
-        //
+        var_dump($request->all());
+        $data =  $request->all();
+
+        $apartment = new Apartment();
+        $apartment->fill($data);
+
+        // slug
+        $apartment->slug = Str::slug($apartment->name, '-');
+        dd($apartment);
+        $apartment->save();
+
+        return to_route('admin.apartments.show', $apartment);
     }
 
     /**
