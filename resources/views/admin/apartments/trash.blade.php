@@ -48,5 +48,6 @@
       @csrf
       <button type="submit" class="btn btn-danger">Elimina tutto</button>
     </form>
+    <a class="btn btn-secondary" href="{{ route('admin.apartments.index') }}">Torna alla lista appartmenti</a>
   </div>
 @endsection
