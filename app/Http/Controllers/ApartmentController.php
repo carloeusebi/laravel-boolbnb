@@ -12,7 +12,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::orderBy('updated_at', 'DESC')->paginate(10);
+        $apartments = Apartment::orderBy('updated_at', 'DESC')->get();
 
         return view('admin.apartments.index', compact('apartments'));
     }
