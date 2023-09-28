@@ -20,10 +20,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function () {
-
     Route::resource('apartments', ApartmentController::class);
 });
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
