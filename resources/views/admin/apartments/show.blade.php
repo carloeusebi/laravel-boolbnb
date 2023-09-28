@@ -31,22 +31,22 @@
           <p class="card-text fw-bold">{{ $apartment->address }}</p>
 
           <div class="card-text">
-            <span>Stanze:</span>
+            <span class="fw-bold me-1 text-secondary">Stanze:</span>
             <small>{{ $apartment->rooms }}</small>
           </div>
 
           <div class="card-text">
-            <span>Stanze da letto:</span>
+            <span class="fw-bold me-1 text-secondary">Stanze da letto:</span>
             <small>{{ $apartment->bedrooms }}</small>
           </div>
 
           <div class="card-text">
-            <span>Bagni:</span>
+            <span class="fw-bold me-1 text-secondary">Bagni:</span>
             <small>{{ $apartment->bathrooms }}</small>
           </div>
 
           <div class="card-text">
-            <span>Metri quadri:</span>
+            <span class="fw-bold me-1 text-secondary">Metri quadri:</span>
             <small>{{ $apartment->square_meters }}</small>
           </div>
 
@@ -68,22 +68,22 @@
               <p class="card-text fw-bold">{{ $apartment->address }}</p>
 
               <div class="card-text">
-                <span>Stanze:</span>
+                <span class="fw-bold me-1 text-secondary">Stanze:</span>
                 <small>{{ $apartment->rooms }}</small>
               </div>
 
               <div class="card-text">
-                <span>Stanze da letto:</span>
+                <span class="fw-bold me-1 text-secondary">Stanze da letto:</span>
                 <small>{{ $apartment->bedrooms }}</small>
               </div>
 
               <div class="card-text">
-                <span>Bagni:</span>
+                <span class="fw-bold me-1 text-secondary">Bagni:</span>
                 <small>{{ $apartment->bathrooms }}</small>
               </div>
 
               <div class="card-text">
-                <span>Metri quadri:</span>
+                <span class="fw-bold me-1 text-secondary">Metri quadri:</span>
                 <small>{{ $apartment->square_meters }}</small>
               </div>
 
