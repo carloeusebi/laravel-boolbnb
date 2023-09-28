@@ -12,6 +12,10 @@
 {{-- token --}}
 @csrf
 
+<p class="mb-4 text-end">
+  * I campi sono obbligatori
+</p>
+
 <div class="row">
   {{-- name --}}
   <div class="mb-3 col-sm-12 col-lg-6">
@@ -132,8 +136,8 @@
   {{-- preview --}}
   <div class="col-sm-12 col-lg-2">
     <img
-      src="{{ $apartment->thumbnail ? $apartment->getThumbnailPath() : 'https://marcolanci.it/utils/placeholder.jpg' }}"
-      class="img-fluid" id="thumbnail-preview" alt="preview">
+      src="{{ $apartment->thumbnail ? $apartment->getPathImage() : 'https://marcolanci.it/utils/placeholder.jpg' }}"
+      class="img-fluid" id="thumb-preview" alt="preview">
   </div>
 </div>
 
