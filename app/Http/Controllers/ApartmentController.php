@@ -58,10 +58,47 @@ class ApartmentController extends Controller
     }
 
     /**
+     * Display a listing of the deleted resource.
+     */
+    public function trash()
+    {
+        $apartments = Apartment::onlyTrashed()->get();
+        return view('admin.apartments.trash', compact('apartments'));
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->delete();
+        return to_route('home');
+    }
+
+    public function drop(string $id)
+    {
+        $apartment = Apartment::onlyTrashed()->findOrFail($id);
+        $apartment->forceDelete();
+        return to_route('admin.apartments.trash');
+    }
+
+    public function restore(string $id)
+    {
+        $apartment = Apartment::onlyTrashed()->findOrFail($id);
+        $apartment->restore();
+        return to_route('admin.apartments.trash');
+    }
+
+    public function dropAll()
+    {
+        Apartment::onlyTrashed()->forceDelete();
+        return to_route('admin.apartments.trash');
+    }
+
+    public function restoreAll()
+    {
+        Apartment::onlyTrashed()->restore();
+        return to_route('admin.apartments.trash');
     }
 }
