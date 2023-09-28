@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -11,7 +12,9 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $apartments = Apartment::orderBy('updated_at', 'DESC')->paginate(10);
+
+        return view('admin.apartments.index', compact('apartments'));
     }
 
     /**
