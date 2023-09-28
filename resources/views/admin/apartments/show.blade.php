@@ -1,17 +1,13 @@
-{{--
-
 @extends('layouts.app')
 
 @section('title', 'Apartment')
 
-    @section('content')
+@section('content')
 
-    //
+    show page
 
-    @endsection
+@endsection
 
 @section('scripts')
     @vite('')
 @endsection
-
---}}
