@@ -2,7 +2,7 @@
 
 @section('content')
   {{-- back button --}}
-  <a href="#">Torna alla lista</a>
+  <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Torna alla lista</a>
 
   {{-- form --}}
   @include('includes.form')
