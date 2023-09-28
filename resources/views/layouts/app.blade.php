@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -44,8 +44,22 @@
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+              <a class="@if (Route::is('home')) active @endif nav-link" href="{{ route('home') }}">Home</a>
             </li>
+            @auth
+              <li class="nav-item">
+                <a class="@if (Route::is('admin.apartments.index')) active @endif nav-link"
+                  href="{{ route('admin.apartments.index') }}">I miei appartamenti</a>
+              </li>
+              <li class="nav-item">
+                <a class="@if (Route::is('admin.apartments.create')) active @endif nav-link"
+                  href="{{ route('admin.apartments.create') }}">Crea un nuovo appartamento</a>
+              </li>
+              <li class="nav-item">
+                <a class="@if (Route::is('admin.apartments.trash')) active @endif nav-link"
+                  href="{{ route('admin.apartments.trash') }}">Cestino</a>
+              </li>
+            @endauth
           </ul>
 
           <!-- Right Side Of Navbar -->
