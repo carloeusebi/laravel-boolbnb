@@ -9,3 +9,8 @@
   {{-- form --}}
   @include('includes.form')
 @endsection
+
+@section('scripts')
+
+  @vite('resources/js/thumb-preview.js')
+@endsection
