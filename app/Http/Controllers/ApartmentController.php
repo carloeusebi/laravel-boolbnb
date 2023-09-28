@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApartmentStoreRequest;
 use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
-use Exception;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -34,7 +32,8 @@ class ApartmentController extends Controller
         $data = $request->validated();
 
         $thumbnail = $request->file('thumbnail');
-        $data['thumbnail'] = $this->saveImage($thumbnail);
+        if ($thumbnail)
+            $data['thumbnail'] = $this->saveImage($thumbnail);
 
         //slug
         $data['slug'] = Str::slug($request->name);
@@ -75,6 +74,7 @@ class ApartmentController extends Controller
 
             $data['thumbnail'] = $this->saveImage($thumbnail);
         }
+        $data['slug'] = Str::slug($request->name);
 
         $apartment->update($data);
 

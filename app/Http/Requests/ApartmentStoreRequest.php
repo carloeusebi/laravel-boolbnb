@@ -31,9 +31,9 @@ class ApartmentStoreRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'name' => 'required|unique:apartments,name|max:80',
             'description' => 'required',
-            'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
             'address' => 'required',
-            //?? lat && long
+            'lat' => 'required',
+            'lon' => 'required',
             'rooms' => 'nullable|numeric|min:0|max:255',
             'bedrooms' => 'nullable|numeric|min:0|max:255',
             'bathrooms' => 'nullable|numeric|min:0|max:255',
