@@ -1,0 +1,23 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "git.confirmSync": false,
+    "editor.wordWrap": "on",
+    "[html]": {
+      "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "vscode-pets.petType": "mod",
+    "vscode-pets.throwBallWithMouse": true,
+    "[vue]": {
+      "editor.defaultFormatter": "Vue.volar"
+    },
+    "prettier.singleAttributePerLine": true,
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "[blade]": {
+      "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
+    "bladeFormatter.format.indentSize": 2
+  }
+  
