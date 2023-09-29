@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApartmentStoreRequest;
+use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -44,12 +46,16 @@ class ApartmentController extends Controller
         $data =  $request->all();
 
         $apartment = new Apartment();
+
+        $thumbnail = $request->file('thumbnail');
+        $data['thumbnail'] = $this->saveImage($thumbnail);
+
         $apartment->fill($data);
 
         // Assign the user ID to the apartment
         $apartment->user_id = Auth::user()->id;
 
-        // slug
+        // Create slug from apartment's name
         $apartment->slug = Str::slug($apartment->name, '-');
         $apartment->save();
 
@@ -67,17 +73,38 @@ class ApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.edit', compact('apartment'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ApartmentUpdateRequest $request, Apartment $apartment)
     {
-        //
+        $data = $request->all();
+
+        // Assign the user ID to the apartment
+        $apartment->user_id = Auth::user()->id;
+
+        // IMAGE UPLOAD
+        $thumbnail = $request->file('thumbnail');
+        if ($thumbnail) {
+
+            // if there was an old thumbnail delete it
+            if ($apartment->thumbnail) {
+                Storage::delete($apartment->thumbnail);
+            }
+
+            $data['thumbnail'] = $this->saveImage($thumbnail);
+        }
+
+        // Create slug from apartment's name
+        $apartment->slug = Str::slug($apartment->name, '-');
+        $apartment->update($data);
+
+        return to_route('admin/apartments/show', $apartment);
     }
 
     /**
@@ -123,5 +150,15 @@ class ApartmentController extends Controller
     {
         Apartment::onlyTrashed()->restore();
         return to_route('admin.apartments.trash');
+    }
+
+    /**
+     * Saves the image in the public folder `images`
+     * 
+     * @return string The pat of the saved image.
+     */
+    private function saveImage($image)
+    {
+        return Storage::put('images', $image);
     }
 }
