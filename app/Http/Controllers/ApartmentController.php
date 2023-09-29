@@ -6,6 +6,7 @@ use App\Http\Requests\ApartmentStoreRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -39,12 +40,19 @@ class ApartmentController extends Controller
         $data =  $request->all();
 
         $apartment = new Apartment();
+
+        // Check if image exist and save it
+        if (array_key_exists('image', $data)) {
+            $thumbnail = $request->file('thumbnail');
+            $data['thumbnail'] = $this->saveImage($thumbnail);
+        }
+
         $apartment->fill($data);
 
         // Assign the user ID to the apartment
         $apartment->user_id = Auth::user()->id;
 
-        // slug
+        // Create slug from apartment's name
         $apartment->slug = Str::slug($apartment->name, '-');
         $apartment->save();
 
@@ -62,9 +70,9 @@ class ApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.edit', compact('apartment'));
     }
 
     /**
