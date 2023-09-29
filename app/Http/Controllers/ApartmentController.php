@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApartmentStoreRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -35,15 +36,16 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentStoreRequest $request)
     {
-        var_dump($request->all());
         $data =  $request->all();
 
         $apartment = new Apartment();
         $apartment->fill($data);
 
+        // Assign the user ID to the apartment
+        $apartment->user_id = Auth::user()->id;
+
         // slug
         $apartment->slug = Str::slug($apartment->name, '-');
-        dd($apartment);
         $apartment->save();
 
         return to_route('admin.apartments.show', $apartment);

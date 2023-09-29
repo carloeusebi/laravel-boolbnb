@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Apartment;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentStoreRequest extends FormRequest
 {
@@ -15,11 +15,6 @@ class ApartmentStoreRequest extends FormRequest
         return true;
     }
 
-    public function attributes()
-    {
-        return Apartment::labels();
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,12 +23,12 @@ class ApartmentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
             'name' => 'required|unique:apartments,name|max:80',
             'description' => 'required',
             'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
             'address' => 'required',
-            //?? lat && long
+            // 'lat' => 'required',
+            // 'lon' => 'required',
             'rooms' => 'nullable|numeric|min:0|max:255',
             'bedrooms' => 'nullable|numeric|min:0|max:255',
             'bathrooms' => 'nullable|numeric|min:0|max:255',
