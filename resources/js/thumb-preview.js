@@ -2,6 +2,7 @@ const placeholder = "https://marcolanci.it/utils/placeholder.jpg";
 const thumbInput = document.getElementById('thumbnail');
 const thumbPreview = document.getElementById('thumb-preview');
 
+
 let blobUrl = null;
 
 thumbInput.addEventListener('change', () => {
@@ -15,3 +16,4 @@ thumbInput.addEventListener('change', () => {
         thumbPreview.src = placeholder;
     }
 })
+
