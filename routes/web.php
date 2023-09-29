@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('guest.welcome');
-});
+})->name('home');
 
 Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
