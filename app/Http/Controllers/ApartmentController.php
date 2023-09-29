@@ -12,7 +12,9 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $apartments = Apartment::orderBy('updated_at', 'DESC')->get();
+
+        return view('admin.apartments.index', compact('apartments'));
     }
 
     /**
@@ -34,9 +36,9 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
