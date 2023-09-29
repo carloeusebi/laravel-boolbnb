@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApartmentStoreRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -35,15 +36,16 @@ class ApartmentController extends Controller
      */
     public function store(ApartmentStoreRequest $request)
     {
-        var_dump($request->all());
         $data =  $request->all();
 
         $apartment = new Apartment();
         $apartment->fill($data);
 
+        // Assign the user ID to the apartment
+        $apartment->user_id = Auth::user()->id;
+
         // slug
         $apartment->slug = Str::slug($apartment->name, '-');
-        dd($apartment);
         $apartment->save();
 
         return to_route('admin.apartments.show', $apartment);
@@ -74,10 +76,47 @@ class ApartmentController extends Controller
     }
 
     /**
+     * Display a listing of the deleted resource.
+     */
+    public function trash()
+    {
+        $apartments = Apartment::onlyTrashed()->get();
+        return view('admin.apartments.trash', compact('apartments'));
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->delete();
+        return to_route('home');
+    }
+
+    public function drop(string $id)
+    {
+        $apartment = Apartment::onlyTrashed()->findOrFail($id);
+        $apartment->forceDelete();
+        return to_route('admin.apartments.trash');
+    }
+
+    public function restore(string $id)
+    {
+        $apartment = Apartment::onlyTrashed()->findOrFail($id);
+        $apartment->restore();
+        return to_route('admin.apartments.trash');
+    }
+
+    public function dropAll()
+    {
+        Apartment::onlyTrashed()->forceDelete();
+        return to_route('admin.apartments.trash');
+    }
+
+    public function restoreAll()
+    {
+        Apartment::onlyTrashed()->restore();
+        return to_route('admin.apartments.trash');
     }
 }
