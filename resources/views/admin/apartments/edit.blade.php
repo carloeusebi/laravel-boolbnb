@@ -11,6 +11,6 @@
 @endsection
 
 @section('scripts')
-
   @vite('resources/js/thumb-preview.js')
+  @vite('resources/js/tomtom-api.js')
 @endsection
