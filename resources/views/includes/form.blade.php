@@ -6,7 +6,7 @@
     @method('PUT')
   @else
     {{-- create --}}
-    <form method="POST" action="{{ route('admin.apartments.store') }}" class="mt-4">
+    <form method="POST" action="{{ route('admin.apartments.store') }}" class="mt-4" enctype="multipart/form-data">
 @endif
 
 {{-- token --}}
