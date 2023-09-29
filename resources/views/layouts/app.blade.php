@@ -63,6 +63,8 @@
             @endauth
           </ul>
 
+          @yield('search-bar')
+
           <!-- Right Side Of Navbar -->
           <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
