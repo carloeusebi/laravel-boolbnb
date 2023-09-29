@@ -14,11 +14,16 @@ class ApartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $apartments = Apartment::orderBy('updated_at', 'DESC')->get();
 
-        return view('admin.apartments.index', compact('apartments'));
+        $search_value = $request->query('name');
+
+
+        $search_value ? $apartments = Apartment::orderBy('updated_at', 'DESC')->where('name', 'LIKE', "%$search_value%")->get() : $apartments = Apartment::orderBy('updated_at', 'DESC')->get();
+
+
+        return view('admin.apartments.index', compact('apartments', 'search_value'));
     }
 
     /**
