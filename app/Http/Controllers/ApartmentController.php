@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApartmentStoreRequest;
+use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,11 +42,8 @@ class ApartmentController extends Controller
 
         $apartment = new Apartment();
 
-        // Check if image exist and save it
-        if (array_key_exists('image', $data)) {
-            $thumbnail = $request->file('thumbnail');
-            $data['thumbnail'] = $this->saveImage($thumbnail);
-        }
+        $thumbnail = $request->file('thumbnail');
+        $data['thumbnail'] = $this->saveImage($thumbnail);
 
         $apartment->fill($data);
 
@@ -78,9 +76,30 @@ class ApartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ApartmentUpdateRequest $request, Apartment $apartment)
     {
-        //
+        $data = $request->all();
+
+        // Assign the user ID to the apartment
+        $apartment->user_id = Auth::user()->id;
+
+        // IMAGE UPLOAD
+        $thumbnail = $request->file('thumbnail');
+        if ($thumbnail) {
+
+            // if there was an old thumbnail delete it
+            if ($apartment->thumbnail) {
+                Storage::delete($apartment->thumbnail);
+            }
+
+            $data['thumbnail'] = $this->saveImage($thumbnail);
+        }
+
+        // Create slug from apartment's name
+        $apartment->slug = Str::slug($apartment->name, '-');
+        $apartment->update($data);
+
+        return to_route('admin/apartments/show', $apartment);
     }
 
     /**
@@ -126,5 +145,15 @@ class ApartmentController extends Controller
     {
         Apartment::onlyTrashed()->restore();
         return to_route('admin.apartments.trash');
+    }
+
+    /**
+     * Saves the image in the public folder `images`
+     * 
+     * @return string The pat of the saved image.
+     */
+    private function saveImage($image)
+    {
+        return Storage::put('images', $image);
     }
 }
