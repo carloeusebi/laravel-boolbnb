@@ -1,71 +1,63 @@
-import { axiosInstance } from "./axios";
-
 const SEARCH_ENDPOINT = "https://api.tomtom.com/search/2/search";
 const GEOCODE_ENDPOINT = "https://api.tomtom.com/search/2/geocode";
-const TOM_TOM_KEY = import.meta.env.TOM_TOM_KEY;
+const TOM_TOM_KEY = import.meta.env.VITE_TOM_TOM_KEY;
 
-const params = { key: TOM_TOM_KEY, language: "it-IT", countrySet: "IT", limit: 15 };
+const params = {
+    key: TOM_TOM_KEY,
+    language: "it-IT",
+    countrySet: "IT",
+};
 
-const addressInput = document.getElementById('address');
+const addressInput = document.getElementById("address");
+const suggestedAddressesDatalist = document.getElementById(
+    "suggested-addresses"
+);
 
-let lat = '';
-let lon = '';
+let addressTimeout = null;
 
+let lat = "";
+let lon = "";
+
+errors.test = "here";
 
 /**
-		 * After every keypress, if half a second after last keypress has passed, search for similar addresses and provide autocompletion.
-		 */
-addressInput.addEventListener('change', () => {
+ * After every keypress, if half a second after last keypress has passed, search for similar addresses and provide autocompletion.
+ */
+addressInput.addEventListener("keyup", () => {
+    /**
+     * Dinamically add fields to a datalist
+     * @param {Node} element The HTML datalist element
+     * @param {[string]} options The list of options to mount
+     */
+    const mountDataList = (element, options) => {
+        const optionsHtml = options.reduce(
+            (str, option) => (str += `<option>${option}</option>`),
+            ""
+        );
+        element.innerHTML = optionsHtml;
+    };
 
-    let addressTimeout = null;
     let suggestedAddresses = [];
 
     const timeoutDuration = 500;
     // deletes previous timeout
     clearTimeout(addressTimeout);
     // sets a new timeout
-    addressTimeout = setTimeout(() => {
+    addressTimeout = setTimeout(async () => {
         // if address is empty, skip
         if (!addressInput.value) return;
-
-        axios.get(`${SEARCH_ENDPOINT}/${addressInput.value}.json`, { params })
-            .then(response =>{
-
-                console.log(response);
-                /*suggestedAddresses = [];
-                const addresses = response.data.results;
-                addresses.forEach((address) => {
-                    suggestedAddresses.push(address.address.freeformAddress);*/
-                })
-            .catch(error => {
-                console.log(error);
-              });
+        try {
+            const res = await axios.get(
+                `${SEARCH_ENDPOINT}/${addressInput.value}.json`,
+                { params }
+            );
+            const addresses = res.data.results;
+            suggestedAddresses = addresses.map(
+                (address) => address.address.freeformAddress
+            );
+            mountDataList(suggestedAddressesDatalist, suggestedAddresses);
+        } catch (err) {
+            console.error(err);
+        }
     }, timeoutDuration);
 });
-
-		/**
-		 * Get Coordinates using TomTom's api.
-		 */
-		function getCoordinates() {
-
-            let fetchingCoordinates = false;
-			
-			// if address is empty, skip			
-			if (!addressInput)
-				return;
-
-			try {
-				fetchingCoordinates = true;
-                const res = axios.get(`${GEOCODE_ENDPOINT}/${addressInput}.json`, { params });
-
-				// update lat and lon
-				const { position } = res.data.results[0];
-				lat = position.lat;
-				lon = position.lon;
-			} catch (err) {
-				console.error(err);
-			} finally {
-				fetchingCoordinates = false;
-				return
-			}
-		};

@@ -1,12 +1,18 @@
+@section('scripts')
+  @vite('resources/js/form-validation.js')
+  @vite('resources/js/thumb-preview.js')
+  @vite('resources/js/tomtom-api.js')
+@endsection
+
 @if ($apartment->exists)
   {{-- edit --}}
-  <form method="POST" action="{{ route('admin.apartments.update', $apartment) }}" class="mt-4"
+  <form id="apartment-form" method="POST" action="{{ route('admin.apartments.update', $apartment) }}" class="mt-4"
     enctype="multipart/form-data">
     {{-- metod --}}
     @method('PUT')
   @else
     {{-- create --}}
-    <form method="POST" action="{{ route('admin.apartments.store') }}" class="mt-4" enctype="multipart/form-data">
+    <form id="apartment-form" method="POST" action="{{ route('admin.apartments.store') }}" class="mt-4" enctype="multipart/form-data">
 @endif
 
 {{-- token --}}
@@ -35,7 +41,7 @@
   <div class="mb-3 col-sm-12 col-lg-6">
     <label for="address" class="form-label">Indirizzo *</label>
     <input type="text" class="form-control  @error('address') is-invalid @enderror" name="address" id="address"
-      value="{{ old('address', $apartment->address) }}" placeholder="Inserisci qui l'indirizzo">
+      value="{{ old('address', $apartment->address) }}" placeholder="Inserisci qui l'indirizzo" list="suggested-addresses">
 
     {{-- error message --}}
     @error('address')
@@ -44,6 +50,8 @@
       </div>
     @enderror
   </div>
+  <datalist id="suggested-addresses">
+  </datalist>
 
   {{-- rooms --}}
   <div class="mb-3 col-sm-12 col-lg-3">
