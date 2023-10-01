@@ -18,8 +18,6 @@ let addressTimeout = null;
 let lat = "";
 let lon = "";
 
-errors.test = "here";
-
 /**
  * After every keypress, if half a second after last keypress has passed, search for similar addresses and provide autocompletion.
  */

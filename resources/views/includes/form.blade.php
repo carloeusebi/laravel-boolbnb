@@ -6,13 +6,13 @@
 
 @if ($apartment->exists)
   {{-- edit --}}
-  <form id="apartment-form" method="POST" action="{{ route('admin.apartments.update', $apartment) }}" class="mt-4"
+  <form id="apartment-form" method="POST" action="{{ route('admin.apartments.update', $apartment) }}" class="mt-4" novalidate
     enctype="multipart/form-data">
     {{-- metod --}}
     @method('PUT')
   @else
     {{-- create --}}
-    <form id="apartment-form" method="POST" action="{{ route('admin.apartments.store') }}" class="mt-4" enctype="multipart/form-data">
+    <form id="apartment-form" method="POST" action="{{ route('admin.apartments.store') }}" class="mt-4" enctype="multipart/form-data" novalidate>
 @endif
 
 {{-- token --}}
