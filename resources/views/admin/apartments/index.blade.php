@@ -2,10 +2,6 @@
 
 @section('title', 'Apartments')
 
-@section('search-bar')
-  @include('includes.search-bar')
-@endsection
-
 @section('content')
 
   <div class="container mt-3">
@@ -13,11 +9,7 @@
     <!-- HEADER: -->
     <h2 class="text-secondary">Apartments:</h2>
     <hr>
-    <div class="d-flex {{ $search_value ? 'justify-content-between' : 'justify-content-end' }} align-items-center">
-      @if ($search_value)
-        <a class="btn btn-sm btn-secondary fw-bold" href="{{ route('admin.apartments.index') }}"><i
-            class="me-2 fa-solid fa-circle-left"></i>Torna agli appartamenti</a>
-      @endif
+    <div class="d-flex justify-content-end align-items-center">
       <a class="text-center btn btn-sm btn-success fw-bold" href="{{ route('admin.apartments.create') }}">+ New
         apartment</a>
     </div>
