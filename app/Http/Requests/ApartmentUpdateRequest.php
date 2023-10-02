@@ -40,6 +40,7 @@ class ApartmentUpdateRequest extends FormRequest
             'bathrooms' => 'nullable|numeric|min:0|max:255',
             'rooms' => 'nullable|numeric|min:0|max:255',
             'square_meters' => 'nullable|numeric|min:0|max:65535',
+            'services' => 'nullable|exists:services,id'
         ];
     }
 }
