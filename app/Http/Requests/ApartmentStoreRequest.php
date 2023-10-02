@@ -35,10 +35,10 @@ class ApartmentStoreRequest extends FormRequest
             'address' => 'required',
             'lat' => 'required',
             'lon' => 'required',
-            'rooms' => 'nullable|numeric|min:0|max:255',
-            'bedrooms' => 'nullable|numeric|min:0|max:255',
-            'bathrooms' => 'nullable|numeric|min:0|max:255',
-            'square_meters' => 'nullable|numeric|min:0|max:65535',
+            'rooms' => 'required|numeric|min:0|max:255',
+            'bedrooms' => 'required|numeric|min:0|max:255',
+            'bathrooms' => 'required|numeric|min:0|max:255',
+            'square_meters' => 'required|numeric|min:0|max:65535',
             'services' => 'nullable|exists:services,id'
         ];
     }

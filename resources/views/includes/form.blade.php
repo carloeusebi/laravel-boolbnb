@@ -56,7 +56,7 @@
 
   {{-- rooms --}}
   <div class="mb-3 col-sm-12 col-lg-3">
-    <label for="rooms" class="form-label">Numero stanze</label>
+    <label for="rooms" class="form-label">Numero stanze *</label>
     <input type="number" min="1" max="100" step="1"
       class="form-control  @error('rooms') is-invalid @enderror" name="rooms" id="rooms"
       value="{{ old('rooms', $apartment->rooms) }}">
@@ -71,7 +71,7 @@
 
   {{-- bedrooms --}}
   <div class="mb-3 col-sm-12 col-lg-3">
-    <label for="bedrooms" class="form-label">Numero camere da letto</label>
+    <label for="bedrooms" class="form-label">Numero camere da letto *</label>
     <input type="number" min="1" max="100" step="1"
       class="form-control  @error('bedrooms') is-invalid @enderror" name="bedrooms" id="bedrooms"
       value="{{ old('bedrooms', $apartment->bedrooms) }}">
@@ -86,7 +86,7 @@
 
   {{-- bathrooms --}}
   <div class="mb-3 col-sm-12 col-lg-3">
-    <label for="bathrooms" class="form-label">Numero bagni</label>
+    <label for="bathrooms" class="form-label">Numero bagni *</label>
     <input type="number" min="1" max="100" step="1"
       class="form-control  @error('bathrooms') is-invalid @enderror" name="bathrooms" id="bathrooms"
       value="{{ old('bathrooms', $apartment->bathrooms) }}">
@@ -101,7 +101,7 @@
 
   {{-- square_meters --}}
   <div class="mb-3 col-sm-12 col-lg-3">
-    <label for="square_meters" class="form-label">Metri quadri</label>
+    <label for="square_meters" class="form-label">Metri quadri *</label>
     <input type="number" min="1" max="999" step="0.5"
       class="form-control  @error('square_meters') is-invalid @enderror" name="square_meters" id="square_meters"
       value="{{ old('square_meters', $apartment->square_meters) }}">
