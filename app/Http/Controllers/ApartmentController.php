@@ -145,7 +145,7 @@ class ApartmentController extends Controller
         if ($user->cannot('delete', $apartment)) abort(403);
 
         $apartment->delete();
-        return to_route('home');
+        return to_route('admin.apartments.index');
     }
 
     public function drop(string $id)

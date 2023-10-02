@@ -13,5 +13,15 @@ deleteForms.forEach((form) => {
         modalConfirmButton.classList.add("btn-danger");
         modalTitle.innerText = `L'Appartamento selezionato verrà eliminato`;
         modalBody.innerText = "Eliminazione appartamento";
+
+        activeForm = form;
     });
+});
+
+modalConfirmButton.addEventListener("click", () => {
+    if (activeForm) activeForm.submit();
+});
+
+modal.addEventListener("hidden.bs.modal", () => {
+    activeForm = null;
 });
