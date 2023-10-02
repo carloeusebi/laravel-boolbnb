@@ -7,15 +7,15 @@
   <div class="container mt-3">
 
     <!-- HEADER: -->
-    <h2 class="text-secondary">Apartments:</h2>
+    <h2 class="text-secondary text-center">Appartamenti :</h2>
     <hr>
     <div class="d-flex justify-content-end align-items-center">
-      <a class="text-center btn btn-sm btn-success fw-bold" href="{{ route('admin.apartments.create') }}">+ New
-        apartment</a>
+      <a class="text-center btn btn-sm btn-success fw-bold" href="{{ route('admin.apartments.create') }}">+ Aggiungi
+        nuovo</a>
     </div>
 
     <!-- TABLE: -->
-    <table class="table mb-5 mt-3 table-dark table-striped">
+    <table class="table mb-5 mt-3 table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
