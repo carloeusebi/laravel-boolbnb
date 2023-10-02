@@ -2,6 +2,10 @@
 
 @section('title', 'Apartments')
 
+@section('search-bar')
+  @include('includes.search-bar')
+@endsection
+
 @section('content')
 
   <div class="container mt-3">
