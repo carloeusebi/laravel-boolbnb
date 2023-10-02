@@ -28,15 +28,15 @@ const validateForm = () => {
 
     const errors = {};
 
-    if (first_name.length > 80)
+    if (first_name.length > 50)
         errors.first_name = "Il nome non può essere piu' lungo di 80 caratteri";
-    if (lastName.length > 80)
+    if (lastName.length > 50)
         errors.lastName = "Il nome non può essere piu' lungo di 80 caratteri";
 
     if (birthday > toDayDate)
         errors.birthday = "Devi essere nato per registrarti";
     if (!email) errors.email = "L'indirizzo email è obbligatiorio";
-    if (!email.includes("@") || email.length < 15)
+    if (!email.includes("@") || email.length < 5)
         errors.email = "Indirizzo email non valido";
 
     if (!password) errors.password = "La password è obbligatioria";
