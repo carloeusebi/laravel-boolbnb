@@ -3,7 +3,7 @@
 @section('title', 'Cestino appartamenti')
 
 @section('content')
-  @if ($apartments->count())
+  @if (!$apartments->count())
     <h2 class="text-center mt-5">Non ci sono appartamenti nel cestino</h2>
     <div class="text-center mt-5">
       <a class="btn btn-secondary" href="{{ route('admin.apartments.index') }}">Torna alla lista appartmenti</a>
