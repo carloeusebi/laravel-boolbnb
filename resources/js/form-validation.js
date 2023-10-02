@@ -83,15 +83,21 @@ const validateForm = () => {
     if (name.length > 80)
         errors.name = "Il nome non può essere piu' lungo di 80 caratteri";
     if (!description) errors.description = "La descrizione è obbligatoria";
+    if (!rooms) errors.rooms = "Il numero di stanze è obbligatorio";
     if (isNaN(rooms) || rooms < 0 || rooms > 100)
         errors.rooms =
             "Il numero di stanze deve essere un numero compreso tra 0 e 100";
+    if (!bedrooms)
+        errors.bedrooms = "Il numero di camere da letto è obbligatorio";
     if (isNaN(bedrooms) || bedrooms < 0 || bedrooms > 100)
         errors.bedrooms =
             "Il numero di camere da letto deve essere un numero compreso tra 0 e 100";
+    if (!bathrooms) errors.bathrooms = "Il numero di bagni è obbligatorio";
     if (isNaN(bathrooms) || bathrooms < 0 || bathrooms > 100)
         errors.bathrooms =
             "Il numero di bagni deve essere un numero compreso tra 0 e 999";
+    if (!square_meters)
+        errors.square_meters = "Il numero di metri quadri è obbligatorio";
     if (isNaN(square_meters) || square_meters < 0 || square_meters > 999)
         errors.square_meters =
             "Il numero di stanze deve essere un numero compreso tra 0 e 100";
