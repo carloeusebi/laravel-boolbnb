@@ -42,7 +42,6 @@ const validateForm = () => {
 
     //todo validate address
 
-    console.log(errors);
     return errors;
 };
 
@@ -53,25 +52,11 @@ const validateForm = () => {
 const displayErrors = (errors) => {
     if (!thereAreErrors(errors)) return;
 
-    const nameInput = form["name"];
-    const descriptionInput = form["description"];
-    const addressInput = form["address"];
-    const roomsInput = form["rooms"];
-    const bedroomsInput = form["bedrooms"];
-    const bathroomsInput = form["bathrooms"];
-    const square_metersInput = form["square_meters"];
+    // invalid input for every error in form with error message
+    for (let field in errors) {
+        form[field].classList.add("is-invalid");
 
-    // invalid input for every error in form with error message 
-    for (let key in errors){
-        console.log(errors[key]);
-        form[key].classList.add('is-invalid');
-        const small = document.createElement('small')
-        const errorContainer = form[key].after(small);
-        const errorMessage = errors[key];
-        errorContainer.append(errorMessage);
-
-
-        alert(errors[key]);
+        document.getElementById(`${field}Feedback`).innerText = errors[field];
     }
 };
 

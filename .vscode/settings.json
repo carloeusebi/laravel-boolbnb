@@ -1,0 +1,26 @@
+{
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontLigatures": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.formatOnSave": true,
+    "[vue]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[php]": {
+      "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.singleQuote": true,
+    "git.confirmSync": false,
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.printWidth": 120,
+    "[blade]": {
+      "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    }
+  }
+  
