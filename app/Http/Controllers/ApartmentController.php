@@ -18,12 +18,12 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-
+        $user = Auth::user();
         $search_value = $request->query('name');
 
+        $query = $search_value ? Apartment::orderBy('updated_at', 'DESC')->where('name', 'LIKE', "%$search_value%") : Apartment::orderBy('updated_at', 'DESC');
 
-        $search_value ? $apartments = Apartment::orderBy('updated_at', 'DESC')->where('name', 'LIKE', "%$search_value%")->get() : $apartments = Apartment::orderBy('updated_at', 'DESC')->get();
-
+        $apartments = $query->where('user_id', $user->id)->get();
 
         return view('admin.apartments.index', compact('apartments', 'search_value'));
     }
@@ -34,7 +34,6 @@ class ApartmentController extends Controller
     public function create()
     {
         $apartment = new Apartment();
-
         return view('admin.apartments.create', compact('apartment'));
     }
 
@@ -48,7 +47,8 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
 
         $thumbnail = $request->file('thumbnail');
-        $data['thumbnail'] = $this->saveImage($thumbnail);
+        if ($thumbnail)
+            $data['thumbnail'] = $this->saveImage($thumbnail);
 
         $apartment->fill($data);
 
@@ -104,7 +104,7 @@ class ApartmentController extends Controller
         $apartment->slug = Str::slug($apartment->name, '-');
         $apartment->update($data);
 
-        return to_route('admin/apartments/show', $apartment);
+        return to_route('admin.apartments.show', $apartment);
     }
 
     /**

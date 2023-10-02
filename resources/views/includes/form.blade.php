@@ -1,7 +1,6 @@
 @section('scripts')
-    @vite('resources/js/form-validation.js')
     @vite('resources/js/thumb-preview.js')
-    @vite('resources/js/tomtom-api.js')
+    @vite('resources/js/form-validation.js')
 @endsection
 
 @if ($apartment->exists)
@@ -149,6 +148,8 @@
             class="img-fluid" id="thumb-preview" alt="preview">
     </div>
 </div>
+<input type="hidden" id="lat" name="lat" value={{ old('lat', $apartment->lat) }} />
+<input type="hidden" id="lon" name="lon" value={{ old('lon', $apartment->lon) }} />
 
 {{-- submit --}}
 <div class="d-flex justify-content-end mt-4">

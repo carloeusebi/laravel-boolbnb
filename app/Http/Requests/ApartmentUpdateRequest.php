@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Apartment;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentUpdateRequest extends FormRequest
 {
@@ -32,8 +33,8 @@ class ApartmentUpdateRequest extends FormRequest
             'description' => 'required',
             'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
             'address' => 'required',
-            //'lat' => 'required',
-            // 'lon' => 'required',
+            'lat' => 'required',
+            'lon' => 'required',
             'rooms' => 'nullable|numeric|min:0|max:255',
             'bedrooms' => 'nullable|numeric|min:0|max:255',
             'bathrooms' => 'nullable|numeric|min:0|max:255',
