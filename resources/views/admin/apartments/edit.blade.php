@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Modifica {{ $apartment->name }}')
+@section('title', "Modifica $apartment->name")
 
 @section('content')
   {{-- back button --}}
@@ -9,4 +9,3 @@
   {{-- form --}}
   @include('includes.form')
 @endsection
-
