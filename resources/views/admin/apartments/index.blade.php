@@ -78,8 +78,6 @@
 
 @endsection
 
-{{--
 @section('scripts')
-    @vite('')
+  @vite('resources/js/delete-confirmation.js')
 @endsection
---}}
