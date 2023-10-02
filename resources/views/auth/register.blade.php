@@ -61,11 +61,11 @@
                   <label for="birthday" class="form-label text-md-right">Data di nascita</label>
                   <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror"
                     name="birthday" value="{{ old('birthday') }}">
-                  @error('birthday')
-                    <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                  @enderror
+                  <div id="birthday_feedback" class="invalid-feedback">
+                    @error('birthday')
+                      {{ $message }}
+                    @enderror
+                  </div>
                 </div>
               </div>
 
