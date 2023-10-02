@@ -49,7 +49,8 @@
                 </a>
 
                 <!--delete-->
-                <form class="delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                <form data-bs-toggle="modal" data-bs-target="#modal" class="delete-form"
+                  action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="ms-2 btn btn-sm btn-danger">
