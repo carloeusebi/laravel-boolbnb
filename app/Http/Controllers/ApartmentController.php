@@ -67,6 +67,11 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
+        /**
+         * @var User
+         */
+        $user = Auth::user();
+        if ($user->cannot('view', $apartment)) abort(403);
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -75,6 +80,11 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('update', $apartment)) abort(403);
         return view('admin.apartments.edit', compact('apartment'));
     }
 
@@ -83,6 +93,12 @@ class ApartmentController extends Controller
      */
     public function update(ApartmentUpdateRequest $request, Apartment $apartment)
     {
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('update', $apartment)) abort(403);
+
         $data = $request->all();
 
         // Assign the user ID to the apartment
@@ -112,7 +128,7 @@ class ApartmentController extends Controller
      */
     public function trash()
     {
-        $apartments = Apartment::onlyTrashed()->get();
+        $apartments = Apartment::onlyTrashed()->where('user_id', Auth::user()->id)->get();
         return view('admin.apartments.trash', compact('apartments'));
     }
 
@@ -122,6 +138,12 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('delete', $apartment)) abort(403);
+
         $apartment->delete();
         return to_route('home');
     }
@@ -129,26 +151,41 @@ class ApartmentController extends Controller
     public function drop(string $id)
     {
         $apartment = Apartment::onlyTrashed()->findOrFail($id);
+
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('update', $apartment)) abort(403);
+
         $apartment->forceDelete();
+
         return to_route('admin.apartments.trash');
     }
 
     public function restore(string $id)
     {
         $apartment = Apartment::onlyTrashed()->findOrFail($id);
+
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('update', $apartment)) abort(403);
+
         $apartment->restore();
         return to_route('admin.apartments.trash');
     }
 
     public function dropAll()
     {
-        Apartment::onlyTrashed()->forceDelete();
+        Apartment::onlyTrashed()->where('user_id', Auth::user()->id)->forceDelete();
         return to_route('admin.apartments.trash');
     }
 
     public function restoreAll()
     {
-        Apartment::onlyTrashed()->restore();
+        Apartment::onlyTrashed()->where('user_id', Auth::user()->id)->restore();
         return to_route('admin.apartments.trash');
     }
 
