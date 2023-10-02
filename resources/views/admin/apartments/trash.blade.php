@@ -26,11 +26,11 @@
                 @csrf
                 <button type="submit" class="btn btn-success">Rispristina</button>
               </form>
-              <form action="{{ route('admin.apartments.drop', $apartment->id) }}" method="Post" class="mb-0">
+              {{-- <form action="{{ route('admin.apartments.drop', $apartment->id) }}" method="Post" class="mb-0">
                 @method('delete')
                 @csrf
                 <button type="submit" class="btn btn-danger">Elimina</button>
-              </form>
+              </form> --}}
             </div>
           </td>
         </tr>
@@ -38,16 +38,17 @@
     </tbody>
   </table>
   <div class="d-flex gap-2 my-5">
+
     <form action="{{ route('admin.apartments.restoreAll') }}" method="POST">
       @method('put')
       @csrf
       <button type="submit" class="btn btn-success">Rispristina tutto</button>
     </form>
-    <form action="{{ route('admin.apartments.dropAll') }}" method="Post">
+    {{-- <form action="{{ route('admin.apartments.dropAll') }}" method="Post">
       @method('delete')
       @csrf
       <button type="submit" class="btn btn-danger">Elimina tutto</button>
-    </form>
+    </form> --}}
     <a class="btn btn-secondary" href="{{ route('admin.apartments.index') }}">Torna alla lista appartmenti</a>
   </div>
 @endsection
