@@ -1,5 +1,10 @@
 const form = document.getElementById("registration-form");
 
+const date = new Date();
+const toDayDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+}-${date.getDate()}`;
+
 /**
  * Checks if there are Errors, based on the number of the errors Object keys.
  * @param {Object} errors The errors
@@ -16,6 +21,7 @@ const thereAreErrors = (errors) => Object.keys(errors).length > 0;
 const validateForm = () => {
     const first_name = form["first_name"].value.trim();
     const lastName = form["last_name"].value.trim();
+    const birthday = form["birthday"].value.trim();
     const email = form["email"].value.trim();
     const password = form["password"].value.trim();
     const password_confirmation = form["password_confirmation"].value.trim();
@@ -24,14 +30,11 @@ const validateForm = () => {
 
     if (first_name.length > 80)
         errors.first_name = "Il nome non può essere piu' lungo di 80 caratteri";
-    if (/[^a-zA-Z0-9\-\/]/.test(first_name))
-        errors.first_name =
-            "Il nome non può contenere caratteri speciali o numeri";
     if (lastName.length > 80)
         errors.lastName = "Il nome non può essere piu' lungo di 80 caratteri";
-    if (/[^a-zA-Z0-9\-\/]/.test(lastName))
-        errors.lastName =
-            "Il cognome non può contenere caratteri speciali o numeri";
+
+    if (birthday > toDayDate)
+        errors.birthday = "Devi essere nato per registrarti";
     if (!email) errors.email = "L'indirizzo email è obbligatiorio";
     if (!email.includes("@") || email.length < 15)
         errors.email = "Indirizzo email non valido";
