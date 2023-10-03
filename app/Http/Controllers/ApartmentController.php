@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApartmentStoreRequest;
 use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,12 @@ class ApartmentController extends Controller
     public function create()
     {
         $apartment = new Apartment();
-        return view('admin.apartments.create', compact('apartment'));
+
+        //Include services table in form
+        $services = Service::select('id', 'name', 'icon')->get();
+        $apartment_service_ids = $apartment->services->pluck('id')->toArray();
+
+        return view('admin.apartments.create', compact('apartment', 'services', 'apartment_service_ids'));
     }
 
     /**
@@ -58,6 +64,9 @@ class ApartmentController extends Controller
         // Create slug from apartment's name
         $apartment->slug = Str::slug($apartment->name, '-');
         $apartment->save();
+
+        //Assign service to the apartment if it's checked
+        if (array_key_exists('services', $data)) $apartment->services()->attach($data['services']);
 
         return to_route('admin.apartments.show', $apartment);
     }
@@ -85,7 +94,12 @@ class ApartmentController extends Controller
          */
         $user = Auth::user();
         if ($user->cannot('update', $apartment)) abort(403);
-        return view('admin.apartments.edit', compact('apartment'));
+
+        //Include services table in form
+        $services = Service::select('id', 'name', 'icon')->get();
+        $apartment_service_ids = $apartment->services->pluck('id')->toArray();
+
+        return view('admin.apartments.edit', compact('apartment', 'services', 'apartment_service_ids'));
     }
 
     /**
@@ -120,6 +134,10 @@ class ApartmentController extends Controller
         $apartment->slug = Str::slug($apartment->name, '-');
         $apartment->update($data);
 
+        // If a service is toggle add/remove from apartment
+        if (count($apartment->services) && !array_key_exists('services', $data)) $apartment->services()->detach();
+        elseif (array_key_exists('services', $data)) $apartment->services()->sync($data['services']);
+
         return to_route('admin.apartments.show', $apartment);
     }
 
@@ -145,7 +163,7 @@ class ApartmentController extends Controller
         if ($user->cannot('delete', $apartment)) abort(403);
 
         $apartment->delete();
-        return to_route('home');
+        return to_route('admin.apartments.index');
     }
 
     public function drop(string $id)

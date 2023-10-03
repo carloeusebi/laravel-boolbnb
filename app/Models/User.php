@@ -46,4 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Localizes attributes with user-friendly italian labels.
+     */
+    static function labels(): array
+    {
+        return [
+            'first_name' => 'Nome',
+            'last_name' => 'Cognome',
+            'birthday' => 'Data di nascita',
+        ];
+    }
 }
