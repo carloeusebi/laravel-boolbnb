@@ -13,7 +13,3 @@
     </div>
   </div>
 @endsection
-
-@section('search-bar')
-  @include('includes.search-bar')
-@endsection
