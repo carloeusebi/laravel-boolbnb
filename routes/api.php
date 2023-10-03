@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\AuthController;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
