@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ServiceController;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::delete('/logout', [AuthController::class, 'logout']);
-
-Route::apiResource('/apartments', ApartmentController::class);
+Route::get('apartments', [ApartmentController::class, 'index']);
+Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
+Route::get('services', [ServiceController::class, 'index']);

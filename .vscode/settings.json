@@ -1,23 +1,26 @@
 {
-    "workbench.iconTheme": "vscode-icons",
-    "git.confirmSync": false,
-    "editor.wordWrap": "on",
-    "[html]": {
-      "editor.defaultFormatter": "vscode.html-language-features"
-    },
-    "editor.minimap.enabled": false,
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontLigatures": true,
+    "workbench.iconTheme": "material-icon-theme",
     "editor.formatOnSave": true,
-    "vscode-pets.petType": "mod",
-    "vscode-pets.throwBallWithMouse": true,
     "[vue]": {
-      "editor.defaultFormatter": "Vue.volar"
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "prettier.singleAttributePerLine": true,
+    "[php]": {
+      "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
     "terminal.integrated.defaultProfile.windows": "Git Bash",
-    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.singleQuote": true,
+    "git.confirmSync": false,
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.printWidth": 120,
     "[blade]": {
       "editor.defaultFormatter": "shufo.vscode-blade-formatter"
-    },
-    "bladeFormatter.format.indentSize": 2
+    }
   }
   
