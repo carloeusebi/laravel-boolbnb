@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name', 80)->nullable();
             $table->string('content')->nullable();
             $table->string('email', 80);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
