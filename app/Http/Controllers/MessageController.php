@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Apartment;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,15 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $messages = Message::with('apartment')->get();
+        $id = $request->query('id');
+
+        if ($id) {
+            $messages = Message::where('apartment_id', $id)->get();
+        } else {
+            $messages = Message::with('apartment')->get();
+        }
 
         return view('admin.apartments.messages.index', compact('messages'));
     }
