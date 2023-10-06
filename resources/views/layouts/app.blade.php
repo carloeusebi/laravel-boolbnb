@@ -105,7 +105,7 @@
     </nav>
 
     {{-- main --}}
-    <main class="container">
+    <main class="container pb-4 mx-auto p-0 m-0">
       @yield('content')
     </main>
   </div>

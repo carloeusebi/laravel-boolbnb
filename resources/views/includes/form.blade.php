@@ -5,7 +5,7 @@
 
 @if ($apartment->exists)
   {{-- edit --}}
-  <form id="apartment-form" method="POST" action="{{ route('admin.apartments.update', $apartment) }}" class="mt-4"
+  <form id="apartment-form" method="POST" action="{{ route('admin.apartments.update', $apartment) }}" class=""
     novalidate enctype="multipart/form-data">
     {{-- metod --}}
     @method('PUT')
