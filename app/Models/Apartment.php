@@ -33,7 +33,7 @@ class Apartment extends Model
         ];
     }
 
-    public function sponsorship()
+    public function sponsorships()
     {
         return $this->belongsToMany(Sponsorship::class);
     }

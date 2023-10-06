@@ -48,4 +48,12 @@ class ApartmentPolicy
     {
         return $user->id === $apartment->user_id;
     }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function pay(User $user, Apartment $apartment): bool
+    {
+        return $user->id === $apartment->user_id;
+    }
 }

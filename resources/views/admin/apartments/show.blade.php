@@ -111,27 +111,27 @@
               <h1 class="modal-title fs-5" id="sponsorshipModalLabel">Rendi più visibile il tuo annuncio!</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            {{-- <form action="{{ route('admin.apartments.payment') }}" method="POST"> --}}
-            @csrf
-            <div class="modal-body">
-              {{-- options --}}
-              @foreach ($sponsorships as $sponsorship)
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="{{ $sponsorship->name }}"
-                    id="{{ $sponsorship->name }}">
-                  <label class="form-check-label" for="{{ $sponsorship->name }}">
-                    {{ $sponsorship->name }} - € {{ $sponsorship->price }} - Durata:
-                    <strong>{{ $sponsorship->hours }} ore</strong>
-                  </label>
-                </div>
-              @endforeach
+            <form action="{{ route('admin.apartments.payment', $apartment) }}" method="POST" id="sponsorship-form">
+              @csrf
+              <div class="modal-body">
+                {{-- options --}}
+                @foreach ($sponsorships as $sponsorship)
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sponsorship" id="{{ $sponsorship->name }}"
+                      value="{{ $sponsorship->id }}">
+                    <label class="form-check-label" for="{{ $sponsorship->name }}">
+                      {{ $sponsorship->name }} - € {{ $sponsorship->price }} - Durata:
+                      <strong>{{ $sponsorship->hours }} ore</strong>
+                    </label>
+                  </div>
+                @endforeach
 
-            </div>
-            <div class="modal-footer">
-              <a href="{{ route('admin.apartments.payment') }}" class="btn btn-primary">test</a>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Indietro</button>
-              <button type="submit" class="btn btn-success">Vai al pagamento</button>
-            </div>
+              </div>
+              <div class="modal-footer">
+                {{-- <a href="{{ route('admin.apartments.payment', $apartment) }}" class="btn btn-primary">test</a> --}}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Indietro</button>
+                <button type="submit" class="btn btn-success">Vai al pagamento</button>
+              </div>
             </form>
           </div>
         </div>
@@ -163,4 +163,5 @@
 
 @section('scripts')
   @vite('resources/js/delete-confirmation.js')
+  @vite('resources/js/sponsorship-validation.js')
 @endsection

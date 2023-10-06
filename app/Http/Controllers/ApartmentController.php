@@ -225,17 +225,19 @@ class ApartmentController extends Controller
     /**
      * Show the form for the payment of the sponsorship
      */
-    public function payment(Apartment $apartment)
+    public function payment(Apartment $apartment, Request $request)
     {
         /**
          * @var user
          */
         $user = Auth::user();
-        if ($user->cannot('payment', $apartment)) abort(403);
+        if ($user->cannot('pay', $apartment)) abort(403);
+
+        dd($request->all());
 
         $apartment_sponsorship_ids = $apartment->sponsorships->pluck('id')->toArray();
 
 
-        return view('admin.apartments.payment', compact('apartment', 'sponsorship', 'apartment_sponsorship_ids'));
+        return view('admin.apartments.payment');
     }
 }
