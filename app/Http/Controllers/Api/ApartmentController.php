@@ -40,12 +40,14 @@ class ApartmentController extends Controller
         $apartments = $query->get();
 
         if ($lat && $lon && $maxDistance) {
-            $apartments = array_filter($apartments->toArray(), function ($apartment) use ($lat, $lon, $maxDistance) {
-                $distance = $this->calculateDistance($lat, $lon, $apartment['lat'], $apartment['lon']);
-                if ($distance <= $maxDistance) return $apartment;
+            $apartments = $apartments->filter(function ($apartment) use ($lat, $lon, $maxDistance) {
+                $distance = $this->calculateDistance($lat, $lon, $apartment->lat, $apartment->lon);
+                $apartment->distance = $distance;
+                return ($distance <= $maxDistance);
             });
 
-            $apartments = array_values($apartments);
+            $apartments = $apartments->sortBy('distance');
+            $apartments = $apartments->values();
         }
 
 

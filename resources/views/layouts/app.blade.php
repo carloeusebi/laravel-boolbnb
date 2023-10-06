@@ -28,7 +28,7 @@
   <div id="app">
 
     {{-- navbar --}}
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
           <div class="logo_laravel">
@@ -74,7 +74,7 @@
               </li>
               @if (Route::has('register'))
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                  <a class="nav-link" href="{{ route('register') }}">Crea un nuovo account</a>
                 </li>
               @endif
             @else
@@ -105,7 +105,7 @@
     </nav>
 
     {{-- main --}}
-    <main class="container">
+    <main class="container pb-4 mx-auto p-0 m-0">
       @yield('content')
     </main>
   </div>

@@ -29,7 +29,7 @@ class ApartmentStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:apartments,name|max:80',
+            'name' => 'required|max:80',
             'description' => 'required',
             'address' => 'required',
             'lat' => 'required',

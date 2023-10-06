@@ -62,7 +62,19 @@ class ApartmentController extends Controller
         $apartment->user_id = Auth::user()->id;
 
         // Create slug from apartment's name
-        $apartment->slug = Str::slug($apartment->name, '-');
+
+        $isUniqueSlug = false;
+        $slug = '';
+        $i = 1;
+        do {
+            $slug = Str::slug($apartment->name, '-');
+            if ($i > 1) $slug .= "-$i";
+            $isUniqueSlug = Apartment::where('slug', $slug)->get()->count() === 0;
+            $i++;
+        } while (!$isUniqueSlug);
+
+        $apartment->slug = $slug;
+
         $apartment->save();
 
         //Assign service to the apartment if it's checked
