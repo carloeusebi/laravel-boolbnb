@@ -94,18 +94,61 @@
 
     </div>
 
-    <div class="col-10 mt-3 mx-auto d-flex justify-content-center gap-4">
+    <div class="col-10 mt-3 mx-auto d-flex justify-content-center align-items-center gap-4">
 
-      <a class="me-3 mb-3 fw-bold text-decoration-none btn btn-sm btn-warning "
+      {{-- sponsorship modal --}}
+      {{-- Button trigger modal --}}
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#sponsorshipModal">
+        Sponsorizza
+      </button>
+
+      {{-- Modal --}}
+      <div class="modal fade" id="sponsorshipModal" tabindex="-1" aria-labelledby="sponsorshipModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="sponsorshipModalLabel">Rendi più visibile il tuo annuncio!</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {{-- <form action="{{ route('admin.apartments.payment') }}" method="POST"> --}}
+            @csrf
+            <div class="modal-body">
+              {{-- options --}}
+              @foreach ($sponsorships as $sponsorship)
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="{{ $sponsorship->name }}"
+                    id="{{ $sponsorship->name }}">
+                  <label class="form-check-label" for="{{ $sponsorship->name }}">
+                    {{ $sponsorship->name }} - € {{ $sponsorship->price }} - Durata:
+                    <strong>{{ $sponsorship->hours }} ore</strong>
+                  </label>
+                </div>
+              @endforeach
+
+            </div>
+            <div class="modal-footer">
+              <a href="{{ route('admin.apartments.payment') }}" class="btn btn-primary">test</a>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Indietro</button>
+              <button type="submit" class="btn btn-success">Vai al pagamento</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {{-- edit button --}}
+      <a class="me-3 fw-bold text-decoration-none btn btn-warning "
         href="{{ route('admin.apartments.edit', $apartment) }}">
         <i class="pe-2 fas fa-pencil"></i>Modifica
       </a>
 
+      {{-- delete modal --}}
       <form data-bs-toggle="modal" data-bs-target="#modal" class="d-inline delete-form"
         action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
         @csrf
         @method('DELETE')
-        <button type="submit" class=" mb-3 btn-sm btn btn-danger ">
+        <button type="submit" class=" btn btn-danger ">
           <span class=" fw-bold text-decoration-none" href="#">
             <i class="pe-2 fas fa-trash"></i>Elimina
           </span>

@@ -25,6 +25,7 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
     Route::put('/apartments/trash/restoreAll', [ApartmentController::class, 'restoreAll'])->name('apartments.restoreAll');
     Route::delete('/apartments/trash/{apartment}/drop', [ApartmentController::class, 'drop'])->name('apartments.drop');
     Route::delete('/apartments/trash/deleteAll', [ApartmentController::class, 'dropAll'])->name('apartments.dropAll');
+    Route::get('/apartments/{apartment}/payment', [ApartmentController::class, 'payment'])->name('apartments.payment'); // payment 
     Route::resource('apartments', ApartmentController::class);
 });
 

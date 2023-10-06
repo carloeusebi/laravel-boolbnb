@@ -6,6 +6,7 @@ use App\Http\Requests\ApartmentStoreRequest;
 use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -81,7 +82,10 @@ class ApartmentController extends Controller
          */
         $user = Auth::user();
         if ($user->cannot('view', $apartment)) abort(403);
-        return view('admin.apartments.show', compact('apartment'));
+
+        $sponsorships = Sponsorship::all();
+
+        return view('admin.apartments.show', compact('apartment', 'sponsorships'));
     }
 
     /**
@@ -216,5 +220,22 @@ class ApartmentController extends Controller
     private function saveImage($image)
     {
         return Storage::put('images', $image);
+    }
+
+    /**
+     * Show the form for the payment of the sponsorship
+     */
+    public function payment(Apartment $apartment)
+    {
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('payment', $apartment)) abort(403);
+
+        $apartment_sponsorship_ids = $apartment->sponsorships->pluck('id')->toArray();
+
+
+        return view('admin.apartments.payment', compact('apartment', 'sponsorship', 'apartment_sponsorship_ids'));
     }
 }
