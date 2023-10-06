@@ -7,11 +7,13 @@ use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\Sponsorship;
+use Braintree;
+use Braintree\Transaction;
+use Braintree\Gateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
 
 class ApartmentController extends Controller
 {
@@ -233,11 +235,34 @@ class ApartmentController extends Controller
         $user = Auth::user();
         if ($user->cannot('pay', $apartment)) abort(403);
 
-        dd($request->all());
 
         $apartment_sponsorship_ids = $apartment->sponsorships->pluck('id')->toArray();
 
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+        ]);
 
-        return view('admin.apartments.payment');
+        if ($request->input('nonce')) {
+            $sponsorship = Sponsorship::find($request->sponsorship);
+            $nonceFromTheClient = $request->nonce;
+
+            $result = $gateway->transaction()->sale([
+                'amount' => $sponsorship->price,
+                'paymentMethodNonce' => $nonceFromTheClient
+            ]);
+
+            if ($result->success) {
+                return view('admin.apartments.index')
+                    ->with('alert-message', 'Pagamento avvenuto con successo!')
+                    ->with('alert-type', 'success');;
+            }
+        }
+
+        $token = $gateway->clientToken()->generate();
+
+        return view('admin.apartments.payment', compact('token'));
     }
 }

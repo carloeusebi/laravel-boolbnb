@@ -108,10 +108,15 @@
 
     {{-- main --}}
     <main class="container">
+      {{-- alert --}}
+      @include('includes.alert')
+
+      {{-- content --}}
       @yield('content')
     </main>
   </div>
 
+  {{-- modal --}}
   @include('includes.modal')
 
   @yield('scripts')

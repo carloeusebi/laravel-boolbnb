@@ -1,4 +1,4 @@
-const CLIENT_TOKEN_FROM_SERVER = env(CLIENT_TOKEN_FROM_SERVER);
+const CLIENT_TOKEN_FROM_SERVER = env("CLIENT_TOKEN_FROM_SERVER");
 
 // create a dropin instance using the container (or a string)
 //   that functions as a query selector such as '#dropin-container')
