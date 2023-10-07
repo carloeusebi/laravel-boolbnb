@@ -28,10 +28,10 @@ class ApartmentUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = request()->route('apartment');
         return [
             'name' => 'required|max:80',
             'description' => 'required',
-            'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
             'address' => 'required',
             'lat' => 'required',
             'lon' => 'required',

@@ -31,7 +31,6 @@ class ApartmentStoreRequest extends FormRequest
         return [
             'name' => 'required|max:80',
             'description' => 'required',
-            'thumbnail' => 'nullable|file|mimes:jpeg,jpg,png,webp',
             'address' => 'required',
             'lat' => 'required',
             'lon' => 'required',

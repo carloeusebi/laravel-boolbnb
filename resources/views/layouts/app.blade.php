@@ -10,6 +10,8 @@
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
+    {{-- Braintree for payments --}}
+    <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -108,6 +110,10 @@
 
         {{-- main --}}
         <main class="container">
+            {{-- alert --}}
+            @include('includes.alert')
+
+            {{-- content --}}
             @yield('content')
         </main>
     </div>

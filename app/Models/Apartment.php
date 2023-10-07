@@ -33,14 +33,24 @@ class Apartment extends Model
         ];
     }
 
-    public function sponsorship()
+    public function sponsorships()
     {
-        return $this->belongsToMany(Sponsorship::class);
+        return $this->belongsToMany(Sponsorship::class)->wherePivot('expiration_date', '>=', 'NOW()')->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
     }
 
     public function services()
     {
         return $this->belongsToMany(Service::class);
+    }
+
+    public function getSponsorshipExpirationAttribute()
+    {
+        if ($this->sponsorships->count()) {
+            $expirationDate = $this->sponsorships->first()->pivot->expiration_date;
+            return $expirationDate;
+        } else {
+            return '-';
+        }
     }
 
     public function getPathImage()

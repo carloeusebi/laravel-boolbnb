@@ -6,11 +6,14 @@ use App\Http\Requests\ApartmentStoreRequest;
 use App\Http\Requests\ApartmentUpdateRequest;
 use App\Models\Apartment;
 use App\Models\Service;
+use App\Models\Sponsorship;
+use Braintree;
+use Braintree\Transaction;
+use Braintree\Gateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
 
 class ApartmentController extends Controller
 {
@@ -93,7 +96,10 @@ class ApartmentController extends Controller
          */
         $user = Auth::user();
         if ($user->cannot('view', $apartment)) abort(403);
-        return view('admin.apartments.show', compact('apartment'));
+
+        $sponsorships = Sponsorship::all();
+
+        return view('admin.apartments.show', compact('apartment', 'sponsorships'));
     }
 
     /**
@@ -141,6 +147,7 @@ class ApartmentController extends Controller
 
             $data['thumbnail'] = $this->saveImage($thumbnail);
         }
+        $data['slug'] = Str::slug($request->name);
 
         // Create slug from apartment's name
         $apartment->slug = Str::slug($apartment->name, '-');
@@ -227,5 +234,47 @@ class ApartmentController extends Controller
     private function saveImage($image)
     {
         return Storage::put('images', $image);
+    }
+
+    /**
+     * Show the form for the payment of the sponsorship
+     */
+    public function payment(Apartment $apartment, Request $request)
+    {
+        /**
+         * @var user
+         */
+        $user = Auth::user();
+        if ($user->cannot('pay', $apartment)) abort(403);
+
+
+        $apartment_sponsorship_ids = $apartment->sponsorships->pluck('id')->toArray();
+
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+        ]);
+
+        if ($request->input('nonce')) {
+            $sponsorship = Sponsorship::find($request->sponsorship);
+            $nonceFromTheClient = $request->nonce;
+
+            $result = $gateway->transaction()->sale([
+                'amount' => $sponsorship->price,
+                'paymentMethodNonce' => $nonceFromTheClient
+            ]);
+
+            if ($result->success) {
+                return view('admin.apartments.index')
+                    ->with('alert-message', 'Pagamento avvenuto con successo!')
+                    ->with('alert-type', 'success');;
+            }
+        }
+
+        $token = $gateway->clientToken()->generate();
+
+        return view('admin.apartments.payment', compact('token'));
     }
 }
