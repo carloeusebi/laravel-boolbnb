@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SponsorshipController;
+use App\Models\Sponsorship;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +27,10 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
     Route::put('/apartments/trash/restoreAll', [ApartmentController::class, 'restoreAll'])->name('apartments.restoreAll');
     Route::delete('/apartments/trash/{apartment}/drop', [ApartmentController::class, 'drop'])->name('apartments.drop');
     Route::delete('/apartments/trash/deleteAll', [ApartmentController::class, 'dropAll'])->name('apartments.dropAll');
-    Route::post('/apartments/{apartment}/payment', [ApartmentController::class, 'payment'])->name('apartments.payment'); // payment 
     Route::resource('apartments', ApartmentController::class);
+
+    Route::get('/apartments/{apartment}/sponsorship/', [SponsorshipController::class, 'index'])->name('sponsorship');
+    Route::post('/apartments/{apartment}/sponsorship/submit-payment', [SponsorshipController::class, 'processPayment'])->name('sponsorship.payment');
 });
 
 Route::get('/dashboard', function () {
