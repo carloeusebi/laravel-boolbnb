@@ -87,6 +87,16 @@
                                 <small>{{ $apartment->square_meters }}</small>
                             </div>
 
+                            <div class=card-text>
+                                <span class="fw-bold me-1 text-secondary">Sponsorizzazione:</span>
+                                <small id="sponsorship_expiration"></small>
+                                <script defer>
+                                    const localizedDate = new Date('{{ $apartment->sponsorshipExpiration }} UTC').toLocaleString();
+                                    document.getElementById('sponsorship_expiration').innerText = localizedDate;
+                                </script>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -97,7 +107,7 @@
         <div class="col-10 mt-3 mx-auto d-flex justify-content-center align-items-center gap-4">
 
 
-            <a href="{{ route('admin.sponsorship') }}" class="btn btn-success">Sponsorizza</a>
+            <a href="{{ route('admin.sponsorship', $apartment) }}" class="btn btn-success">Sponsorizza</a>
 
 
             {{-- edit button --}}
@@ -126,5 +136,4 @@
 
 @section('scripts')
     @vite('resources/js/delete-confirmation.js')
-    @vite('resources/js/sponsorship-validation.js')
 @endsection

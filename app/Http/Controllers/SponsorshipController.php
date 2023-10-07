@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\Sponsorship;
 use App\Services\Braintree;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,21 @@ class SponsorshipController extends Controller
         $token = $braintree->generateToken([]);
 
         return view('admin.apartments.sponsor', compact('apartment', 'sponsorships', 'token'));
+    }
+
+
+    private function createSponsorship(Apartment $apartment, Sponsorship $sponsorship)
+    {
+        // get the last sponsorship
+        $currentSponsorship = $apartment->sponsorships->first();
+
+        $initialDate = $currentSponsorship
+            ? Carbon::parse($currentSponsorship->pivot->expiration_date)
+            : Carbon::now();
+
+        $expirationDate = $initialDate->addMilliseconds($sponsorship->duration);
+        $attributes = ['expiration_date' => $expirationDate];
+        $apartment->sponsorships()->attach($sponsorship->id, $attributes);
     }
 
 
@@ -40,10 +56,10 @@ class SponsorshipController extends Controller
         ]);
 
         if ($result->success) {
-            dd('success');
-            //create relation
+            $this->createSponsorship($apartment, $sponsorship);
+            return view('admin.apartments.show', compact('apartment'));
         } else {
-            dd('error');
+            return to_route('admin.sponsorship', $apartment)->withErrors(['error' => 'Qualcosa è andato storto']);
         }
     }
 }

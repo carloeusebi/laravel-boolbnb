@@ -3,7 +3,7 @@
 @section('content')
 
     @if ($errors->any())
-        <div class="alert alert-warning">
+        <div class="alert alert-warning mt-5">
             <ul class="list-unstyled">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
