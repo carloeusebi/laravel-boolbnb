@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageStoreRequest;
 use App\Models\Apartment;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, string $slug)
+    public function store(MessageStoreRequest $request, string $slug)
     {
 
         $data = $request->all();
