@@ -35,7 +35,7 @@ class Apartment extends Model
 
     public function sponsorships()
     {
-        return $this->belongsToMany(Sponsorship::class)->wherePivot('expiration_date', '>=', 'NOW()')->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
+        return $this->belongsToMany(Sponsorship::class)->wherePivot('expiration_date', '>', 'NOW()')->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
     }
 
     public function services()
