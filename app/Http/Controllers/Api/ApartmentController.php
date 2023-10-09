@@ -50,6 +50,12 @@ class ApartmentController extends Controller
             $apartments = $apartments->values();
         }
 
+        foreach ($apartments as $apt) {
+            /**
+             * @var Apartment $apt
+             */
+            $apt->sponsored = $apt->sponsorshipExpiration;
+        }
 
         return response()->json($apartments);
     }

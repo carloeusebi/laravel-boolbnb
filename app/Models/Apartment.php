@@ -55,7 +55,7 @@ class Apartment extends Model
             $expirationDate = $this->sponsorships->first()->pivot->expiration_date;
             return $expirationDate;
         } else {
-            return '-';
+            return null;
         }
     }
 
