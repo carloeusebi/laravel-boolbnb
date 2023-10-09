@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApartmentController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SponsorshipController;
 use App\Models\Sponsorship;
@@ -22,6 +23,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function () {
+    Route::get('/apartments/messages', [MessageController::class, 'index'])->name('apartments.messages');
+    Route::get('/apartments/messages/{message}', [MessageController::class, 'show'])->name('apartments.messages.show');
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
     Route::put('/apartments/trash/{apartment}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore');
     Route::put('/apartments/trash/restoreAll', [ApartmentController::class, 'restoreAll'])->name('apartments.restoreAll');
@@ -42,5 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
 
 require __DIR__ . '/auth.php';

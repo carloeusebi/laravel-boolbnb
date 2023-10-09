@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ApartmentController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Apartment;
@@ -22,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('apartments', [ApartmentController::class, 'index']);
 Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
 Route::get('services', [ServiceController::class, 'index']);
+Route::post('apartments/{slug}/messages/send', [MessageController::class, 'store']);
