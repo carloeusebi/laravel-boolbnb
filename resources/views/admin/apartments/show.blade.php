@@ -87,14 +87,16 @@
                                 <small>{{ $apartment->square_meters }}</small>
                             </div>
 
-                            <div class=card-text>
-                                <span class="fw-bold me-1 text-secondary">Sponsorizzazione:</span>
-                                <small id="sponsorship_expiration"></small>
-                                <script defer>
-                                    const localizedDate = new Date('{{ $apartment->sponsorshipExpiration }} UTC').toLocaleString();
-                                    document.getElementById('sponsorship_expiration').innerText = localizedDate;
-                                </script>
-                            </div>
+                            @if ($apartment->sponsorshipExpiration)
+                                <div class=card-text>
+                                    <span class="fw-bold me-1 text-secondary">Sponsorizzazione:</span>
+                                    <small id="sponsorship_expiration"></small>
+                                    <script defer>
+                                        const localizedDate = new Date('{{ $apartment->sponsorshipExpiration }} UTC').toLocaleString();
+                                        document.getElementById('sponsorship_expiration').innerText = localizedDate;
+                                    </script>
+                                </div>
+                            @endif
 
 
                         </div>
