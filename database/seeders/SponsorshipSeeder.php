@@ -31,6 +31,11 @@ class SponsorshipSeeder extends Seeder
                 'price' => 9.99,
                 'duration' => 144 * $hour,
             ],
+            [
+                'name' => 'Test',
+                'price' => 0.10,
+                'duration' => 30000
+            ]
         ];
 
         foreach ($sponsorships as $sponsorship) {

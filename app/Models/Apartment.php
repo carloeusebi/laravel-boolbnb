@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,14 +34,30 @@ class Apartment extends Model
         ];
     }
 
-    public function sponsorship()
+    public function sponsorships()
     {
-        return $this->belongsToMany(Sponsorship::class);
+        return $this->belongsToMany(Sponsorship::class)->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
     }
 
     public function services()
     {
         return $this->belongsToMany(Service::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+
+    public function getSponsorshipExpirationAttribute()
+    {
+        if ($this->sponsorships->count()) {
+            $expirationDate = $this->sponsorships->first()->pivot->expiration_date;
+            return Carbon::parse($expirationDate . 'UTC') > Carbon::now() ? $expirationDate : null;
+        } else {
+            return null;
+        }
     }
 
     public function getPathImage()
