@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +36,7 @@ class Apartment extends Model
 
     public function sponsorships()
     {
-        return $this->belongsToMany(Sponsorship::class)->wherePivot('expiration_date', '>', 'NOW()')->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
+        return $this->belongsToMany(Sponsorship::class)->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
     }
 
     public function services()
@@ -53,7 +54,7 @@ class Apartment extends Model
     {
         if ($this->sponsorships->count()) {
             $expirationDate = $this->sponsorships->first()->pivot->expiration_date;
-            return $expirationDate;
+            return Carbon::parse($expirationDate . 'UTC') > Carbon::now() ? $expirationDate : null;
         } else {
             return null;
         }
