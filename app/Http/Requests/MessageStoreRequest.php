@@ -25,7 +25,7 @@ class MessageStoreRequest extends FormRequest
             'email' =>  'required|email|',
             'name' => 'required|max:40',
             'content' => 'required|max:350',
-            'apartment_id' => 'required|exists:apartment,id'
+            'apartment_id' => 'exists:apartment,id'
         ];
     }
 }
