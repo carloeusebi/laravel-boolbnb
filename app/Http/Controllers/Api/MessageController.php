@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MessageStoreRequest;
 use App\Models\Apartment;
 use App\Models\Message;
 use Illuminate\Http\Request;
