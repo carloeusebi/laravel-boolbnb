@@ -25,9 +25,9 @@ Route::get('/', function () {
 
 Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/apartments/messages', [MessageController::class, 'index'])->name('apartments.messages');
+    Route::post('/apartments/messages/{message}/mails/reply', [MailController::class, 'reply'])->name('apartments.messages.mails.reply');
     Route::get('/apartments/messages/{message}', [MessageController::class, 'show'])->name('apartments.messages.show');
     Route::get('/apartments/messages/{message}/mails/create', [MailController::class, 'create'])->name('apartments.messages.mails.create');
-    Route::post('/apartments/messages/mails/reply', [MailController::class, 'reply'])->name('apartments.messages.mails.reply');
     Route::get('/apartments/trash', [ApartmentController::class, 'trash'])->name('apartments.trash');
     Route::put('/apartments/trash/{apartment}/restore', [ApartmentController::class, 'restore'])->name('apartments.restore');
     Route::put('/apartments/trash/restoreAll', [ApartmentController::class, 'restoreAll'])->name('apartments.restoreAll');
