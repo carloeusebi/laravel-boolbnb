@@ -11,7 +11,7 @@
   <div class="container pb-4 mt-3">
 
     <!-- HEADER: -->
-    <h2 class="text-secondary text-center">Appartamenti :</h2>
+    <h2 class="text_title text-center">Appartamenti :</h2>
     <hr>
     <div class="d-flex justify-content-end align-items-center">
       <a class="text-center btn btn-sm btn-success fw-bold" href="{{ route('admin.apartments.create') }}">+ Aggiungi
