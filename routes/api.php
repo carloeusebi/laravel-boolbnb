@@ -26,4 +26,4 @@ Route::get('apartments/{slug}', [ApartmentController::class, 'show']);
 Route::get('services', [ServiceController::class, 'index']);
 Route::post('apartments/{slug}/messages/send', [MessageController::class, 'store']);
 
-Route::post('visits/log', [VisitController::class, 'logVisit']);
+Route::post('visits/log/{id}', [VisitController::class, 'logVisit']);

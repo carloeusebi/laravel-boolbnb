@@ -7,16 +7,13 @@ use Illuminate\Http\Request;
 
 class VisitController extends Controller
 {
-    public function logVisit(Request $request)
+    public function logVisit(Request $request, string $id)
     {
-        $request->validate([
-            'apartment_id' => 'required|exists:apartments,id',
-            'date' => 'required|date',
-            'ip_address' => 'required',
+        Visit::create([
+            'ip_address' => $request->ip(),
+            'date' => now(),
+            'apartment_id' => $id
         ]);
-
-        $visit = Visit::create($request->only('date', 'ip_address'));
-        $visit->apartment()->attach($request->apartment_id);
 
         return response(status: 204);
     }
