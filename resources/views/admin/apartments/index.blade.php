@@ -47,7 +47,7 @@
                                 </a>
 
                                 <form action="{{ route('admin.apartments.messages') }}" method="GET">
-                                    @csrf
+
                                     <input type="text" name="id" value="{{ $apartment->id }}" class="d-none">
                                     <button class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-primary"><i
                                             class="fas fa-envelope"></i>
