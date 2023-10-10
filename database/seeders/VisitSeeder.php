@@ -22,7 +22,7 @@ class VisitSeeder extends Seeder
             for ($i = 0; $i < $numberOfVisits; $i++) {
                 Visit::create([
                     'apartment_id' => $apartment->id,
-                    'date' => $faker->dateTimeBetween('-2 months'),
+                    'date' => $faker->dateTimeBetween('-2 years'),
                     'ip_address' => $faker->ipv4(),
                 ]);
             }

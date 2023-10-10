@@ -134,6 +134,9 @@
 
     </div>
 
+    <div id="visits"></div>
+    @columnchart('Visits', 'visits')
+
 @endsection
 
 @section('scripts')
