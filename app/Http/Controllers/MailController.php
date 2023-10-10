@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MessageMail;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
@@ -21,7 +23,18 @@ class MailController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function reply(Request $request)
+    public function reply(Request $request,)
     {
+        $user_email = $request->user_email;
+        $user_message_id = $request->user_message_id;
+        $message = Message::where('id', $user_message_id)->first();
+        $sender = $request->admin_email;
+        $subject = $request->subject;
+        $content = $request->content;
+        $guest = $message->name;
+        $mail = new MessageMail($sender, $subject, $content, $guest);
+        Mail::to($user_email)->send($mail);
+
+        return view('admin.apartments.messages.show', compact('message'));
     }
 }
