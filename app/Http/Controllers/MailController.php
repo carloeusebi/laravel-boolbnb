@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MailReplyRequest;
 use App\Mail\MessageMail;
 use App\Models\Message;
 use Illuminate\Http\Request;
