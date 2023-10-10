@@ -29,8 +29,6 @@
 <body>
   <div id="app">
 
-    <div class="home_container"></div>
-
     {{-- navbar --}}
     <nav class="navbar navbar-expand-md navbar-light shadow-sm">
       <div class="container">
@@ -94,7 +92,7 @@
                   <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                         document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                   </a>
 
@@ -108,15 +106,21 @@
         </div>
       </div>
     </nav>
+    <div class="home_container">
 
-    {{-- main --}}
-    <main class="container">
-      {{-- alert --}}
-      @include('includes.alert')
 
-      {{-- content --}}
-      @yield('content')
-    </main>
+      {{-- main --}}
+      <main class="container">
+        {{-- alert --}}
+        @include('includes.alert')
+
+        {{-- content --}}
+        @yield('content')
+      </main>
+
+
+    </div>
+
   </div>
 
   @include('includes.modal')
