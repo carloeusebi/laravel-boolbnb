@@ -106,20 +106,15 @@
         </div>
       </div>
     </nav>
-    <div class="home_container">
 
+    {{-- main --}}
+    <main class="container">
+      {{-- alert --}}
+      @include('includes.alert')
 
-      {{-- main --}}
-      <main class="container">
-        {{-- alert --}}
-        @include('includes.alert')
-
-        {{-- content --}}
-        @yield('content')
-      </main>
-
-
-    </div>
+      {{-- content --}}
+      @yield('content')
+    </main>
 
   </div>
 
