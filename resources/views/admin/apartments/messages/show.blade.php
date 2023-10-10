@@ -9,7 +9,8 @@
             <div class="card-body">
                 <p class="card-title fs-5">{{ $message->name }} - {{ $message->email }}</p>
                 <p class="card-text mt-3">{{ $message->content }}</p>
-                <a href="#" class="btn btn-primary btn-sm">Rispondi</a>
+                <a href="{{ route('admin.apartments.messages.mails.create', $message) }}"
+                    class="btn btn-primary btn-sm">Rispondi</a>
                 <a class="btn btn-sm btn-secondary btn-sm" href="{{ route('admin.apartments.messages') }}"><i
                         class="me-2 fa-solid fa-circle-left"></i>Torna agli appartamenti</a>
             </div>
