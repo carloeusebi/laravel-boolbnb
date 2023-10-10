@@ -1,0 +1,14 @@
+#app{
+    position: relative;
+}
+
+#app .home_container{
+    background-image: url();
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 50px;
+    min-height: calc(100vh - 50px);
+}
