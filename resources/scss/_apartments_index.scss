@@ -1,0 +1,29 @@
+.text-secondary{
+    font-weight: 700;
+    font-size: 40px;
+    color: #1b4332
+    !important;
+}
+.table {
+    border-radius: 6px;
+    overflow: hidden;
+ }
+ 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #faedcd;
+ }
+
+ .table>tbody>tr:nth-child(even)>td,
+ .table>tbody>tr:nth-child(even)>th {
+    background-color: #faedcd;
+ }
+ .table>thead>tr{
+     border: solid #f2c14e;
+ }
+ .table>thead>tr>th {
+    background-color: #ffeab3;
+    color: #1b4332;
+ }
+ 
+ 
