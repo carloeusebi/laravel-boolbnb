@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MailReplyRequest;
 use App\Mail\MessageMail;
 use App\Models\Message;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -24,11 +25,22 @@ class MailController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function reply(Request $request,)
+    public function reply(Request $request)
     {
+
+        // Collect use remail and user message id 
         $user_email = $request->user_email;
         $user_message_id = $request->user_message_id;
+
+        // Find message with the user id collected
         $message = Message::where('id', $user_message_id)->first();
+
+        // Add replied_at for notification
+        $replied_at = new DateTime();
+        $message->replied_at = $replied_at;
+        $message->update();
+
+        // Create the mail and send it
         $sender = $request->admin_email;
         $subject = $request->subject;
         $content = $request->content;
