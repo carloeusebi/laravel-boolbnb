@@ -9,10 +9,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-  <title>Boolbnb | @yield('title')</title>
-  <link rel="icon" href="{{ asset('images/logo.png') }}" type="ico">
-  {{-- Braintree for payments --}}
-  <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
+    <title>Boolbnb | @yield('title')</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="ico">
+    {{-- Braintree for payments --}}
+    <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
 
 
     <!-- Fonts -->
@@ -59,14 +59,6 @@
                                 <a class="@if (Route::is('admin.apartments.index')) active @endif nav-link position-relative"
                                     href="{{ route('admin.apartments.index') }}">I miei appartamenti
                                 </a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="@if (Route::is('admin.apartments.create')) active @endif nav-link"
-                                    href="{{ route('admin.apartments.create') }}">Crea un nuovo appartamento</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="@if (Route::is('admin.apartments.trash')) active @endif nav-link"
-                                    href="{{ route('admin.apartments.trash') }}">Cestino</a>
                             </li>
                         @endauth
                     </ul>
