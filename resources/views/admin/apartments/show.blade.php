@@ -56,29 +56,10 @@
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
                 @if ($apartment->thumbnail)
-                    <img src="{{ $apartment->getPathImage() }}" class="img-fluid" alt="{{ $apartment->name }}">
+                    <img src="{{ $apartment->getPathImage() }}" class="img-fluid mb-4" alt="{{ $apartment->name }}">
                 @endif
             </div>
             <div class="col">
-                <div class="mb-3">
-                    <p class="mb-0"><strong>Promozioni:</strong></p>
-                    @if ($apartment->sponsored)
-                        <div>
-                            Appartamento sponsorizzato fino <span id="sponsorship-expiration"></span>.
-                        </div>
-                        <script>
-                            const expiration = '{{ $apartment->sponsorshipExpiration }}'
-                            const localeExpirationDate = new Date(expiration + ' UTC').toLocaleString();
-
-                            document.getElementById('sponsorship-expiration').innerText = localeExpirationDate;
-                        </script>
-                    @else
-                        Nessuna
-                    @endif
-                </div>
-
-
-
                 <p><strong>Descrizione dell'appartamento:</strong></p>
                 <p>{{ $apartment->description }}</p>
 
@@ -104,18 +85,6 @@
                 <div class="card-text">
                     <span class="fw-bold me-1 text-secondary">Metri quadri:</span>
                     <small>{{ $apartment->square_meters }}</small>
-                </div>
-
-                <div class="card-text">
-                    <span class="fw-bold me-1 mt-2">Servizi:</span>
-                    <ul class="list-unstyled d-flex flex-wrap gap-3">
-                        @foreach ($apartment->services as $service)
-                            <li>
-                                <i class="fas fa-{{ $service->icon }}"></i>
-                                <span>{{ $service->name }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
                 </div>
 
                 <p class="mt-3 mb-0 fw-bold">Statistiche delle visualizzazioni:</p>

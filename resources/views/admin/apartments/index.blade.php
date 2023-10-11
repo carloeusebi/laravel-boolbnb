@@ -8,8 +8,7 @@
 
 @section('content')
 
-
-    <div class="container mt-3">
+    <div class="container pb-4 mt-3">
 
         <!-- HEADER: -->
         <h1 class="text-center h4 mt-5">I miei appartamenti</h1>
@@ -20,12 +19,12 @@
         </div>
 
         <!-- TABLE: -->
-        <table class="table mb-5 mt-3 table-striped">
+        <table class="table mb-5 mt-3 table-striped ">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th class="d-none d-lg-table-cell" scope="col">#</th>
                     <th scope="col">Titolo</th>
-                    <th scope="col">Descrizione</th>
+                    <th class="d-none d-md-table-cell" scope="col">Descrizione</th>
                     <th scope="col">Indirizzo</th>
                     <th></th>
                 </tr>
@@ -33,9 +32,9 @@
             <tbody>
                 @forelse ($apartments as $apartment)
                     <tr>
-                        <th scope="row">{{ $apartment->id }}</th>
+                        <th class="d-none d-lg-table-cell" scope="row">{{ $apartment->id }}</th>
                         <td>{{ $apartment->name }}</td>
-                        <td>{{ $apartment->getDescription() }}</td>
+                        <td class="d-none d-md-table-cell">{{ $apartment->getDescription() }}</td>
                         <td>{{ $apartment->address }}</td>
 
                         <td>
@@ -47,18 +46,13 @@
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-
-
-                                <a href="{{ route('admin.apartments.messages', $apartment) }}"
-                                    class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-primary position-relative"><i
-                                        class="fas fa-envelope"></i>
-                                    @if ($apartment->messages->where('read_at', null)->count())
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            {{ $apartment->messages->where('read_at', null)->count() }}
-                                        </span>
-                                    @endif
-                                </a>
+                                <form action="{{ route('admin.apartments.messages') }}" method="GET">
+                                    @csrf
+                                    <input type="text" name="id" value="{{ $apartment->id }}" class="d-none">
+                                    <button class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-primary"><i
+                                            class="fas fa-envelope"></i>
+                                    </button>
+                                </form>
 
                                 <!--edit-->
                                 <a class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-warning"
