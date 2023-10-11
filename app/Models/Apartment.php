@@ -34,6 +34,11 @@ class Apartment extends Model
         ];
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function sponsorships()
     {
         return $this->belongsToMany(Sponsorship::class)->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
