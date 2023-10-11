@@ -5,6 +5,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SponsorshipController;
+use App\Models\Apartment;
 use App\Models\Sponsorship;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,7 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
     Route::post('/apartments/{apartment}/sponsorship/submit-payment', [SponsorshipController::class, 'processPayment'])->name('sponsorship.payment');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ApartmentController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
