@@ -5,6 +5,9 @@
         <div class="card mt-5 w-75">
             <div class="card-header">
                 {{ $message->apartment->name }} - {{ $message->apartment->address }}
+                @if ($message->replied_at)
+                    <div class="badge text-bg-success ms-4">Risposta inviata</div>
+                @endif
             </div>
             <div class="card-body">
                 <p class="card-title fs-5">{{ $message->name }} - {{ $message->email }}</p>
