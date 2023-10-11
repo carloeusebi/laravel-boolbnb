@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use App\Models\Message;
+use DateTime;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -11,16 +12,19 @@ class MessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function indexAll()
     {
-        $id = $request->query('id');
+        $messages = Message::all();
+        return view('admin.apartments.messages.index', compact('messages'));
+    }
 
-        if ($id) {
-            $messages = Message::where('apartment_id', $id)->get();
-        } else {
-            $messages = Message::with('apartment')->get();
-        }
 
+    /**
+     * Display a listing of the resource based on a apartment.
+     */
+    public function index(Apartment $apartment)
+    {
+        $messages = Message::where('apartment_id', $apartment->id)->get();
         return view('admin.apartments.messages.index', compact('messages'));
     }
 
@@ -45,6 +49,12 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
+
+        $read_at = new DateTime();
+
+        $message->read_at = $read_at;
+
+        $message->update();
         return view('admin.apartments.messages.show', compact('message'));
     }
 

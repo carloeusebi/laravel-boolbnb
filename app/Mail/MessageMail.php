@@ -2,23 +2,36 @@
 
 namespace App\Mail;
 
+use App\Models\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class MessageMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $sender;
+    public $subject;
+    public $content;
+    public $guest;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($sender, $subject, $content, $guest)
     {
-        //
+        $this->sender = $sender;
+        $this->subject = $subject;
+        $this->content = $content;
+        $this->guest = $guest;
     }
 
     /**
@@ -27,7 +40,8 @@ class MessageMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Message Mail',
+            from: $this->sender,
+            subject: $this->subject,
         );
     }
 
@@ -37,7 +51,8 @@ class MessageMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'admin.apartments.messages.mails.template',
+            with: ['content' => $this->content, 'guest' => $this->guest],
         );
     }
 
