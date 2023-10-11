@@ -11,8 +11,9 @@
                 <p class="card-text mt-3">{{ $message->content }}</p>
                 <a href="{{ route('admin.apartments.messages.mails.create', $message) }}"
                     class="btn btn-primary btn-sm">Rispondi</a>
-                <a class="btn btn-sm btn-secondary btn-sm" href="{{ route('admin.apartments.messages') }}"><i
-                        class="me-2 fa-solid fa-circle-left"></i>Torna agli appartamenti</a>
+                <a class="btn btn-sm btn-secondary btn-sm"
+                    href="{{ route('admin.apartments.messages', $message->apartment) }}"><i
+                        class="me-2 fa-solid fa-circle-left"></i>Torna ai messaggi</a>
             </div>
         </div>
     </div>
