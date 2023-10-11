@@ -49,6 +49,8 @@
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Invia Mail</button>
+            <a class="btn btn-secondary ms-2" href="{{ route('admin.apartments.messages', $message->apartment) }}"><i
+                    class="me-2 fa-solid fa-circle-left"></i>Torna ai messaggi</a>
         </div>
     </form>
 @endsection
