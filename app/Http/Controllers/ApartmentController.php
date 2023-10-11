@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 
 class ApartmentController extends Controller
 {
@@ -98,6 +99,24 @@ class ApartmentController extends Controller
         if ($user->cannot('view', $apartment)) abort(403);
 
         $sponsorships = Sponsorship::all();
+
+        $visits = Lava::DataTable();
+        $visits->addDateColumn('Data');
+        $visits->addNumberColumn('visits');
+
+        $visitLogs = $apartment->visits->sortBy('date');
+        $visitsPerDay = [];
+
+        foreach ($visitLogs as $visit) {
+            $dailyVisits = $visitsPerDay[$visit->date] ?? 0;
+            $visitsPerDay[$visit->date] = $dailyVisits + 1;
+        }
+
+        foreach ($visitsPerDay as $day => $numberOfVisits) {
+            $visits->addRow([$day, $numberOfVisits]);
+        }
+
+        Lava::ColumnChart('Visits', $visits, ['title' => 'Visite']);
 
         return view('admin.apartments.show', compact('apartment', 'sponsorships'));
     }
