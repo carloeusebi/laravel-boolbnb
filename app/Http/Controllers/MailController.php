@@ -35,6 +35,10 @@ class MailController extends Controller
         // Find message with the user id collected
         $message = Message::where('id', $user_message_id)->first();
 
+        // Add red_at for notification
+        $read_at = new DateTime();
+        $message->read_at = $read_at;
+
         // Add replied_at for notification
         $replied_at = new DateTime();
         $message->replied_at = $replied_at;
