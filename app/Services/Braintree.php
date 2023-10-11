@@ -13,10 +13,10 @@ class Braintree
     public function __construct()
     {
         $this->gateway = new Gateway([
-            'environment' => env('BRAINTREE_ENVIRONMENT'),
-            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
-            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
-            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+            'environment' => 'sandbox',
+            'merchantId' => '55prmmtwbp2n82p2',
+            'publicKey' => '43tcx4ccbv388mfh',
+            'privateKey' => 'e4ad170159907e8995d70279102970e1'
         ]);
     }
 
