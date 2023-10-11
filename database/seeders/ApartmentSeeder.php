@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Apartment;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
@@ -22,6 +23,8 @@ class ApartmentSeeder extends Seeder
         $thumbnails = array_slice($thumbnails, 2);
 
         Storage::makeDirectory('images');
+
+        $services = Service::pluck('id');
 
         while (($data = fgetcsv($csv_file)) !== false) {
 
@@ -48,6 +51,11 @@ class ApartmentSeeder extends Seeder
                 $apartment->thumbnail = 'images/' . $thumb;
 
                 $apartment->save();
+
+                foreach ($services as $serviceId) {
+                    if (rand(0, 1))
+                        $apartment->services()->attach($serviceId);
+                }
             }
 
             $first_line = false;
