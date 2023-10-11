@@ -28,6 +28,8 @@ class VisitController extends Controller
                 'date' => now(),
                 'apartment_id' => $id
             ]);
+
+            return response(status: 201);
         }
 
         return response(status: 204);

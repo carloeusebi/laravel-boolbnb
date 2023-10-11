@@ -6,6 +6,7 @@ use App\Models\Apartment;
 use App\Models\Message;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -14,7 +15,13 @@ class MessageController extends Controller
      */
     public function indexAll()
     {
-        $messages = Message::all();
+        $userApartmentIds = Apartment::where('user_id', Auth::user()->id)->pluck('id')->toArray();
+        $allMessages = Message::all();
+
+        $messages = $allMessages->filter(function ($m) use ($userApartmentIds) {
+            if (in_array($m['apartment_id'], $userApartmentIds)) return $m;
+        });
+
         return view('admin.apartments.messages.index', compact('messages'));
     }
 

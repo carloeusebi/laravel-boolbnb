@@ -166,10 +166,8 @@ class ApartmentController extends Controller
 
             $data['thumbnail'] = $this->saveImage($thumbnail);
         }
-        $data['slug'] = Str::slug($request->name);
 
         // Create slug from apartment's name
-        $apartment->slug = Str::slug($apartment->name, '-');
         $apartment->update($data);
 
         // If a service is toggle add/remove from apartment
