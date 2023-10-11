@@ -18,11 +18,11 @@ class VisitSeeder extends Seeder
         $apartments = Apartment::all();
 
         foreach ($apartments as $apartment) {
-            $numberOfVisits = rand(1, 10);
+            $numberOfVisits = rand(5, 20);
             for ($i = 0; $i < $numberOfVisits; $i++) {
                 Visit::create([
                     'apartment_id' => $apartment->id,
-                    'date' => $faker->dateTimeBetween('-2 years'),
+                    'date' => $faker->dateTimeBetween('-5 months'),
                     'ip_address' => $faker->ipv4(),
                 ]);
             }
