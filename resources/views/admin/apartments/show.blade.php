@@ -54,18 +54,33 @@
         </header>
 
         <div class="row row-cols-1 row-cols-md-2">
-            <div class="col">
-                @if ($apartment->thumbnail)
+            @if ($apartment->thumbnail)
+                <div class="col">
                     <img src="{{ $apartment->getPathImage() }}" class="img-fluid mb-4" alt="{{ $apartment->name }}">
-                @endif
-            </div>
+                </div>
+            @endif
             <div class="col">
+
+                <div class="mb-3">
+                    <p class="mb-0"><strong>Promozioni attive:</strong></p>
+                    @if ($apartment->sponsored)
+                        Appartamento sponsorizzato fino al <span id="sponsorship-expiration"></span>.
+                        <script>
+                            const utcExpiration = '{{ $apartment->sponsorshipExpiration }} UTC';
+                            const localizedExpiration = new Date(utcExpiration).toLocaleString();
+
+                            document.getElementById('sponsorship-expiration').innerText = localizedExpiration;
+                        </script>
+                    @else
+                        Nessuna
+                    @endif
+                </div>
+
                 <p><strong>Descrizione dell'appartamento:</strong></p>
                 <p>{{ $apartment->description }}</p>
 
                 <p class="mb-0"><strong>Indirizzo dell'appartamento:</strong></p>
                 <p>{{ $apartment->address }}</p>
-
 
                 <div class="card-text">
                     <span class="fw-bold me-1 text-secondary">Stanze:</span>
