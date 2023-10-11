@@ -9,7 +9,6 @@
 @section('content')
 
     <div class="container mt-3">
-
         <!-- HEADER: -->
         <h2 class="text-secondary text-center">Appartamenti :</h2>
         <hr>
@@ -46,13 +45,18 @@
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <form action="{{ route('admin.apartments.messages') }}" method="GET">
 
-                                    <input type="text" name="id" value="{{ $apartment->id }}" class="d-none">
-                                    <button class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-primary"><i
-                                            class="fas fa-envelope"></i>
-                                    </button>
-                                </form>
+
+                                <a href="{{ route('admin.apartments.messages', $apartment) }}"
+                                    class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-primary position-relative"><i
+                                        class="fas fa-envelope"></i>
+                                    @if ($apartment->messages->where('read_at', null)->count())
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {{ $apartment->messages->where('read_at', null)->count() }}
+                                        </span>
+                                    @endif
+                                </a>
 
                                 <!--edit-->
                                 <a class="ms-2 text-white fw-bold text-decoration-none btn btn-sm btn-warning"
