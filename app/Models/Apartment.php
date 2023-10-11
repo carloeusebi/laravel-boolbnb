@@ -54,6 +54,11 @@ class Apartment extends Model
         return $this->hasMany(Visit::class);
     }
 
+    public function getSponsoredAttribute()
+    {
+        return $this->getSponsorshipExpirationAttribute();
+    }
+
     public function getSponsorshipExpirationAttribute()
     {
         if ($this->sponsorships->count()) {
