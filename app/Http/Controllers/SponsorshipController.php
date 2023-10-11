@@ -57,7 +57,9 @@ class SponsorshipController extends Controller
 
         if ($result->success) {
             $this->createSponsorship($apartment, $sponsorship);
-            return to_route('admin.apartments.show', compact('apartment'));
+            return to_route('admin.apartments.show', compact('apartment'))
+                ->with('type', 'success')
+                ->with('message', "Sponsorizzazione avvenuta con successo");
         } else {
             return to_route('admin.sponsorship', $apartment)->withErrors(['error' => 'Qualcosa è andato storto']);
         }
