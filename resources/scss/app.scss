@@ -1,1 +1,9 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+@import 'header';
+@import 'home';
+@import 'apartments_index';
+
+
+.main-color{
+    color: #1b4332;
+}

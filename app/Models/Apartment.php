@@ -34,6 +34,11 @@ class Apartment extends Model
         ];
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function sponsorships()
     {
         return $this->belongsToMany(Sponsorship::class)->orderByPivot('expiration_date', 'desc')->withPivot('expiration_date');
@@ -49,6 +54,15 @@ class Apartment extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function visits()
+    {
+        return $this->hasMany(Visit::class);
+    }
+
+    public function getSponsoredAttribute()
+    {
+        return $this->getSponsorshipExpirationAttribute();
+    }
 
     public function getSponsorshipExpirationAttribute()
     {

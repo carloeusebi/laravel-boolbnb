@@ -58,4 +58,9 @@ class User extends Authenticatable
             'birthday' => 'Data di nascita',
         ];
     }
+
+    public function apartments()
+    {
+        return $this->hasMany(Apartment::class);
+    }
 }

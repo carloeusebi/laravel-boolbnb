@@ -12,13 +12,22 @@
         </div>
     @endif()
 
-    <div class="row row-cols-1 row-cols-md-2 my-5">
+    <div class="my-5" style="max-width: 500px; margin: 0 auto">
+
+        <a class="mb-3 d-inline-block" href="{{ route('admin.apartments.show', $apartment) }}">
+            <div class="fas fa-caret-left"></div>
+            Torna indietro
+        </a>
+
         {{-- SPONSORSHIPS --}}
         <div class="col px-2">
             <div class="card shadow">
+
                 <div class="card-header">
-                    <h5>Selezions la sponsorizzazione</h5>
+                    <h5 class="mb-0">Seleziona la sponsorizzazione</h5>
                 </div>
+
+
                 <div class="card-body">
                     <form id="payment-form" method="POST" action="{{ route('admin.sponsorship.payment', $apartment) }}">
                         @csrf
@@ -29,7 +38,11 @@
                                     @if ($loop->first) checked @endif>
                                 <label class="form-check-label" for="{{ $sponsorship->name }}">
                                     {{ $sponsorship->name }} - € {{ $sponsorship->price }} - Durata:
-                                    <strong>{{ $sponsorship->hours }} ore</strong>
+                                    @if ($sponsorship->name === 'Test')
+                                        <strong>30 secondi</strong>
+                                    @else
+                                        <strong>{{ $sponsorship->hours }} ore</strong>
+                                    @endif
                                 </label>
                             </div>
                         @endforeach
@@ -43,19 +56,18 @@
                 </div>
             </div>
         </div>
-
-        <div class="col px-2">
-            <div><strong>Nome appartamento: </strong>{{ $apartment->name }}</div>
-            <div><strong>La sponsorizzazione scade: </strong> - </div>
-        </div>
-
     </div>
+    {{-- loader --}}
+    @include('includes.loader')
 @endsection
 
 @section('scripts')
     <script>
         const form = document.getElementById('payment-form');
-        console.log(form);
+
+        const loader = document.getElementById('loader');
+        loader.classList.add('d-none');
+
 
         braintree.dropin.create({
             authorization: '{{ $token }}',
@@ -72,6 +84,7 @@
 
                     document.getElementById('nonce').value = payload.nonce;
                     form.submit();
+                    loader.classList.remove('d-none');
                 })
             })
         });

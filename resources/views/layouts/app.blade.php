@@ -8,10 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
+    <title>Boolbnb | @yield('title')</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="ico">
     {{-- Braintree for payments --}}
     <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,12 +32,13 @@
     <div id="app">
 
         {{-- navbar --}}
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
+
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -52,17 +55,10 @@
                                 href="{{ route('home') }}">Home</a>
                         </li>
                         @auth
-                            <li class="nav-item">
-                                <a class="@if (Route::is('admin.apartments.index')) active @endif nav-link"
-                                    href="{{ route('admin.apartments.index') }}">I miei appartamenti</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="@if (Route::is('admin.apartments.create')) active @endif nav-link"
-                                    href="{{ route('admin.apartments.create') }}">Crea un nuovo appartamento</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="@if (Route::is('admin.apartments.trash')) active @endif nav-link"
-                                    href="{{ route('admin.apartments.trash') }}">Cestino</a>
+                            <li class="nav-item mx-2">
+                                <a class="@if (Route::is('admin.apartments.index')) active @endif nav-link position-relative"
+                                    href="{{ route('admin.apartments.index') }}">I miei appartamenti
+                                </a>
                             </li>
                         @endauth
                     </ul>
@@ -90,11 +86,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
-                                    <a class="dropdown-item" href="{{ route('admin.apartments.messages') }}">Messaggi</a>
+                                    <a class="dropdown-item" href="{{ route('admin.apartments.messages.index') }}">Messaggi
+                                    </a>
                                     <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -117,6 +114,7 @@
             {{-- content --}}
             @yield('content')
         </main>
+
     </div>
 
     @include('includes.modal')

@@ -22,5 +22,9 @@
     "[blade]": {
         "editor.defaultFormatter": "shufo.vscode-blade-formatter"
     },
-    "cSpell.words": ["braintree"]
+    "cSpell.words": [
+        "braintree",
+        "Khill",
+        "Lavacharts"
+    ]
 }
