@@ -8,10 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
-    {{-- Braintree for payments --}}
-    <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
+  <title>Boolbnb | @yield('title')</title>
+  <link rel="icon" href="{{ asset('images/logo.png') }}" type="ico">
+  {{-- Braintree for payments --}}
+  <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -36,6 +38,7 @@
                     <div class="logo_laravel">
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
+
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

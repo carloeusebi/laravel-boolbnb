@@ -8,9 +8,11 @@
 
 @section('content')
 
+
     <div class="container mt-3">
+
         <!-- HEADER: -->
-        <h2 class="text-secondary text-center">Appartamenti :</h2>
+        <h1 class="text-center h4 mt-5">I miei appartamenti</h1>
         <hr>
         <div class="d-flex justify-content-end align-items-center">
             <a class="text-center btn btn-sm btn-success fw-bold" href="{{ route('admin.apartments.create') }}">+ Aggiungi
