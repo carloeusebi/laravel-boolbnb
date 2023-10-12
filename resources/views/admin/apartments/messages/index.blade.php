@@ -7,7 +7,7 @@
         <table class="table mt-5">
             <thead>
                 <tr>
-                    <th scope="col">Nome ospite</th>
+                    <th scope="col" class="d-lg-block d-sm-none">Nome ospite</th>
                     <th scope="col">Messaggio</th>
                     <th scope="col">Email</th>
                     <th scope="col" class="text-center">Appartamento</th>
@@ -18,7 +18,7 @@
             <tbody>
                 @foreach ($messages as $message)
                     <tr>
-                        <td>{{ $message->name }}</td>
+                        <td class="d-lg-table-cell d-sm-none">{{ $message->name }}</td>
                         <td>{{ $message->getMessage() }}</td>
                         <td>{{ $message->email }}</td>
                         <td class="text-center">{{ $message->apartment->name }} - {{ $message->apartment->address }}</td>
