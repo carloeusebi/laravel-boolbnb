@@ -24,6 +24,7 @@
             <table class="table mb-5 mt-3 table-striped ">
                 <thead>
                     <tr>
+                        <th></th>
                         <th scope="col">Nome</th>
                         <th class="d-none d-md-table-cell" scope="col">Descrizione</th>
                         <th scope="col">Indirizzo</th>
@@ -33,6 +34,11 @@
                 <tbody>
                     @foreach ($apartments as $apartment)
                         <tr>
+                            <td>
+                                @if ($apartment->sponsored)
+                                    $
+                                @endif
+                            </td>
                             <td>{{ $apartment->name }}</td>
                             <td class="d-none d-md-table-cell">{{ $apartment->getDescription() }}</td>
                             <td>{{ $apartment->address }}</td>
